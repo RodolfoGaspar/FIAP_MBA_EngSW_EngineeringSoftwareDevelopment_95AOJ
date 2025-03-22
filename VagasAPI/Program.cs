@@ -41,4 +41,27 @@ app.MapPost("/v1/vagas", (AppDbContext context, CreateVagaViewModel model) =>
 });
 
 
+app.MapPut("/v1/vagas", (AppDbContext context, AlterVagaViewModel model) =>
+{
+    var modelVaga = model.MapTo();
+    if (!model.IsValid)
+    { return Results.BadRequest(model.Notifications); }
+
+    var vaga = context.Vagas.FirstOrDefault(v => v.Id == model.Id);
+
+    if (vaga is not null)
+    {
+        vaga.IdEstacionamento = model.IdEstacionamento;
+        vaga.Status = model.Status;
+        vaga.TipoVaga = model.TipoVaga;
+        vaga.ValorHora = model.ValorHora;
+
+        context.SaveChanges();
+        return Results.Created($"/v1/vagas/{modelVaga.Id}", modelVaga);
+    }
+
+    return Results.NoContent();
+    
+});
+
 app.Run();
