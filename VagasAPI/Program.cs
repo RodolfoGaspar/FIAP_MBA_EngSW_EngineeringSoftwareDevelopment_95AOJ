@@ -17,16 +17,28 @@ app.MapGet("/v1/vagas", (AppDbContext context) =>
     return vagas is not null ? Results.Ok(vagas) : Results.NotFound();
 }).Produces<Vaga>();
 
-app.MapPost("/v1/vagas", (AppDbContext context, CreateTodoViewModel model) =>
+app.MapGet("/v1/vagas/{id}", (string id, AppDbContext context) =>
+{
+    if (Guid.TryParse(id, out Guid idVaga))
+    {
+        var vagas = context.Vagas.FirstOrDefault(v => v.Id == Guid.Parse(id));
+        return vagas is not null ? Results.Ok(vagas) : Results.NotFound();
+    }
+    return Results.NotFound();
+
+}).Produces<Vaga>();
+
+app.MapPost("/v1/vagas", (AppDbContext context, CreateVagaViewModel model) =>
 {
     var vaga = model.MapTo();
     if (!model.IsValid)
-        return Results.BadRequest(model.Notifications);
+    { return Results.BadRequest(model.Notifications); }
 
     context.Vagas.Add(vaga);
     context.SaveChanges();
 
     return Results.Created($"/v1/vagas/{vaga.Id}", vaga);
 });
+
 
 app.Run();

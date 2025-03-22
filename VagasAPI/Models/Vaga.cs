@@ -1,1 +1,1 @@
-﻿public record Vaga(Guid Id, Guid IdEstacionamento, bool Status, TipoVagaEnum TipoVaga, decimal ValorHora);
+﻿public record Vaga(Guid Id, Guid IdEstacionamento, StatusVagaEnum Status, TipoVagaEnum TipoVaga, decimal ValorHora);

@@ -3,10 +3,10 @@ using Flunt.Validations;
 
 namespace VagasApi.ViewModels
 {
-    public class CreateTodoViewModel : Notifiable<Notification>
+    public class CreateVagaViewModel : Notifiable<Notification>
     {
         public Guid IdEstacionamento { get; set; }
-        public bool Status { get; set; }
+        public StatusVagaEnum Status { get; set; }
         public TipoVagaEnum TipoVaga { get; set; }
         public decimal ValorHora { get; set; }
 
