@@ -1,5 +1,5 @@
 public enum TipoVagaEnum
 {
-    Coberta,
-    Descoberta
+    COBERTA,
+    DESCOBERTA
 }

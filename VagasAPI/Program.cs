@@ -60,8 +60,19 @@ app.MapPut("/v1/vagas", (AppDbContext context, AlterVagaViewModel model) =>
         return Results.Created($"/v1/vagas/{modelVaga.Id}", modelVaga);
     }
 
-    return Results.NoContent();
-    
+    return Results.NoContent();    
 });
+
+app.MapGet("/v1/vagas/status", (AppDbContext context) =>
+{
+    return Enum.GetValues(typeof(StatusVagaEnum)).Cast<StatusVagaEnum>().Select(s => new { Id = s, Name = Enum.GetName(s) }).ToList();
+
+}).Produces<dynamic>();
+
+app.MapGet("/v1/vagas/tipos", (AppDbContext context) =>
+{
+    return Enum.GetValues(typeof(TipoVagaEnum)).Cast<TipoVagaEnum>().Select(s => new { Id = s, Name = Enum.GetName(s) }).ToList();
+
+}).Produces<dynamic>();
 
 app.Run();
