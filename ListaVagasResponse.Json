@@ -1,0 +1,38 @@
+[
+    {
+        "id": "c1fe5b24-5ef4-4365-85d2-b996e812513c",
+        "idEstacionamento": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        "status": 1,
+        "statusDescricao": "RESERVADA",
+        "tipoVaga": 1,
+        "tipoVagaDescricao": "DESCOBERTA",
+        "valorHora": 12.0
+    },
+    {
+        "id": "81eabe02-ab7c-4915-b7ae-3922102082ac",
+        "idEstacionamento": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        "status": 0,
+        "statusDescricao": "DISPONIVEL",
+        "tipoVaga": 0,
+        "tipoVagaDescricao": "COBERTA",
+        "valorHora": 15.0
+    },
+    {
+        "id": "00515bec-8802-4f7a-956c-0f27824be4c3",
+        "idEstacionamento": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        "status": 0,
+        "statusDescricao": "DISPONIVEL",
+        "tipoVaga": 1,
+        "tipoVagaDescricao": "DESCOBERTA",
+        "valorHora": 20.0
+    },
+    {
+        "id": "2ab45ac2-1e5b-4517-b3b2-358973b8e68e",
+        "idEstacionamento": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        "status": 0,
+        "statusDescricao": "DISPONIVEL",
+        "tipoVaga": 1,
+        "tipoVagaDescricao": "DESCOBERTA",
+        "valorHora": 25.0
+    }
+]

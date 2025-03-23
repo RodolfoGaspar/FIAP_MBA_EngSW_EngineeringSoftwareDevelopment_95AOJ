@@ -40,7 +40,6 @@ app.MapPost("/v1/vagas", (AppDbContext context, CreateVagaViewModel model) =>
     return Results.Created($"/v1/vagas/{vaga.Id}", vaga);
 });
 
-
 app.MapPut("/v1/vagas", (AppDbContext context, AlterVagaViewModel model) =>
 {
     var modelVaga = model.MapTo();
