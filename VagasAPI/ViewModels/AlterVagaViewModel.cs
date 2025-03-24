@@ -18,7 +18,7 @@ namespace VagasApi.ViewModels
             //    .IsNotNull(TipoVaga, "Informe o título da tarefa")
             //    .IsGreaterThan(TipoVaga, 5, "O título deve conter mais de 5 caracteres"));
 
-            return new Vaga(Guid.NewGuid(), IdEstacionamento, Status, TipoVaga, ValorHora);
+            return new Vaga(Id, IdEstacionamento, Status, TipoVaga, ValorHora);
         }
     }
 }
