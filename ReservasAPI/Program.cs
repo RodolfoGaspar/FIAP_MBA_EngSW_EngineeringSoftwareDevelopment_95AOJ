@@ -57,7 +57,7 @@ app.MapPut("/v1/reservas", (AppDbContext context, AlterReservaViewModel model) =
         reserva.StatusReserva = model.StatusReserva;
 
         context.SaveChanges();
-        return Results.Created($"/v1/vagas/{modelReserva.Id}", modelReserva);
+        return Results.Created($"/v1/reservas/{modelReserva.Id}", modelReserva);
     }
 
     return Results.NoContent();
@@ -74,6 +74,23 @@ app.MapDelete("/v1/reservas/{id}", (string id, AppDbContext context) =>
             if (context.SaveChanges() > 0)
             { return Results.NoContent(); }
 
+        }
+    }
+    return Results.NotFound();
+
+});
+
+app.MapPut("/v1/reservas/cancelar/{id}", (string id, AppDbContext context) =>
+{
+    if (Guid.TryParse(id, out Guid idReserva))
+    {
+        var reserva = context.Reservas.FirstOrDefault(r => r.Id == idReserva);
+        if (reserva is not null)
+        {
+            reserva.StatusReserva = StatusReservaEnum.CANCELADA;
+
+            context.SaveChanges();
+            return Results.Created($"/v1/reservas/{id}", reserva);
         }
     }
     return Results.NotFound();
