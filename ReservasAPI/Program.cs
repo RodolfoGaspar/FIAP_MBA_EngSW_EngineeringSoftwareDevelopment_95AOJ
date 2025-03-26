@@ -73,11 +73,9 @@ app.MapDelete("/v1/reservas/{id}", (string id, AppDbContext context) =>
             context.Remove(reserva);
             if (context.SaveChanges() > 0)
             { return Results.NoContent(); }
-
         }
     }
     return Results.NotFound();
-
 });
 
 app.MapPut("/v1/reservas/cancelar/{id}", (string id, AppDbContext context) =>
