@@ -21,7 +21,7 @@ app.MapGet("/v1/pagamentos/{id}", (string id, AppDbContext context) =>
 {
     if (Guid.TryParse(id, out Guid idReserva))
     {
-        var reservas = context.Pagamentos.FirstOrDefault(p => p.Id == Guid.Parse(id));
+        var reservas = context?.Pagamentos?.FirstOrDefault(p => p.Id == Guid.Parse(id));
         return reservas is not null ? Results.Ok(reservas) : Results.NotFound();
     }
     return Results.NotFound();
@@ -33,8 +33,8 @@ app.MapPost("/v1/pagamentos", (AppDbContext context, CreatePagamentoViewModel mo
     if (!model.IsValid)
         return Results.BadRequest(model.Notifications);
 
-    context.Pagamentos.Add(pagamento);
-    context.SaveChanges();
+    context?.Pagamentos?.Add(pagamento);
+    context?.SaveChanges();
 
     return Results.Created($"/v1/pagamentos/{pagamento.Id}", pagamento);
 });
@@ -45,7 +45,7 @@ app.MapPut("/v1/pagamentos", (AppDbContext context, AlterPagamentoViewModel mode
     if (!model.IsValid)
     { return Results.BadRequest(model.Notifications); }
 
-    var reserva = context.Pagamentos.FirstOrDefault(p => p.Id == model.Id);
+    var reserva = context?.Pagamentos?.FirstOrDefault(p => p.Id == model.Id);
 
     if (reserva is not null)
     {
@@ -54,7 +54,7 @@ app.MapPut("/v1/pagamentos", (AppDbContext context, AlterPagamentoViewModel mode
         reserva.Valor = model.Valor;
         reserva.MetodoPagamento = model.MetodoPagamento;        
 
-        context.SaveChanges();
+        context?.SaveChanges();
         return Results.Created($"/v1/reservas/{modelReserva.Id}", modelReserva);
     }
 
@@ -65,11 +65,11 @@ app.MapDelete("/v1/pagamentos/{id}", (string id, AppDbContext context) =>
 {
     if (Guid.TryParse(id, out Guid idReserva))
     {
-        var reserva = context.Pagamentos.FirstOrDefault(p => p.Id == idReserva);
+        var reserva = context?.Pagamentos?.FirstOrDefault(p => p.Id == idReserva);
         if (reserva is not null)
         {
-            context.Remove(reserva);
-            if (context.SaveChanges() > 0)
+            context?.Remove(reserva);
+            if (context?.SaveChanges() > 0)
             { return Results.NoContent(); }
         }
     }
