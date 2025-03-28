@@ -24,6 +24,7 @@ public class Reservas
     public DateTime DataInicio { get; set; }
     public DateTime DataFim { get; set; }
     public StatusReservaEnum StatusReserva { get; set; }
+
     [IgnoreDataMember]
-    public string StatusReservaDescricao { get { return Enum.GetName(StatusReserva); } }
+    public string? StatusReservaDescricao { get { return Enum.GetName(StatusReserva); } }
 }

@@ -21,7 +21,7 @@ app.MapGet("/v1/reservas/{id}", (string id, AppDbContext context) =>
 {
     if (Guid.TryParse(id, out Guid idReserva))
     {
-        var reservas = context.Reservas.FirstOrDefault(r => r.Id == Guid.Parse(id));
+        var reservas = context?.Reservas?.FirstOrDefault(r => r.Id == Guid.Parse(id));
         return reservas is not null ? Results.Ok(reservas) : Results.NotFound();
     }
     return Results.NotFound();
@@ -33,7 +33,7 @@ app.MapPost("/v1/reservas", (AppDbContext context, CreateReservaViewModel model)
     if (!model.IsValid)
     { return Results.BadRequest(model.Notifications); }
 
-    context.Reservas.Add(reserva);
+    context?.Reservas?.Add(reserva);
     context.SaveChanges();
 
     return Results.Created($"/v1/reservas/{reserva.Id}", reserva);
@@ -45,7 +45,7 @@ app.MapPut("/v1/reservas", (AppDbContext context, AlterReservaViewModel model) =
     if (!model.IsValid)
     { return Results.BadRequest(model.Notifications); }
 
-    var reserva = context.Reservas.FirstOrDefault(r => r.Id == model.Id);
+    var reserva = context?.Reservas?.FirstOrDefault(r => r.Id == model.Id);
 
     if (reserva is not null)
     {
@@ -67,7 +67,7 @@ app.MapDelete("/v1/reservas/{id}", (string id, AppDbContext context) =>
 {
     if (Guid.TryParse(id, out Guid idReserva))
     {
-        var reserva = context.Reservas.FirstOrDefault(r => r.Id == idReserva);
+        var reserva = context?.Reservas?.FirstOrDefault(r => r.Id == idReserva);
         if (reserva is not null)
         {
             context.Remove(reserva);
@@ -82,7 +82,7 @@ app.MapPut("/v1/reservas/cancelar/{id}", (string id, AppDbContext context) =>
 {
     if (Guid.TryParse(id, out Guid idReserva))
     {
-        var reserva = context.Reservas.FirstOrDefault(r => r.Id == idReserva);
+        var reserva = context?.Reservas?.FirstOrDefault(r => r.Id == idReserva);
         if (reserva is not null)
         {
             reserva.StatusReserva = StatusReservaEnum.CANCELADA;
@@ -92,13 +92,11 @@ app.MapPut("/v1/reservas/cancelar/{id}", (string id, AppDbContext context) =>
         }
     }
     return Results.NotFound();
-
 });
 
 app.MapGet("/v1/reservas/status", (AppDbContext context) =>
 {
     return Enum.GetValues(typeof(StatusReservaEnum)).Cast<StatusReservaEnum>().Select(s => new { Id = s, Name = Enum.GetName(s) }).ToList();
-
 }).Produces<dynamic>();
 
 app.Run();
