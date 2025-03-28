@@ -21,7 +21,7 @@ app.MapGet("/v1/vagas/{id}", (string id, AppDbContext context) =>
 {
     if (Guid.TryParse(id, out Guid idVaga))
     {
-        var vagas = context.Vagas.FirstOrDefault(v => v.Id == Guid.Parse(id));
+        var vagas = context?.Vagas?.FirstOrDefault(v => v.Id == Guid.Parse(id));
         return vagas is not null ? Results.Ok(vagas) : Results.NotFound();
     }
     return Results.NotFound();
@@ -34,8 +34,8 @@ app.MapPost("/v1/vagas", (AppDbContext context, CreateVagaViewModel model) =>
     if (!model.IsValid)
     { return Results.BadRequest(model.Notifications); }
 
-    context.Vagas.Add(vaga);
-    context.SaveChanges();
+    context?.Vagas?.Add(vaga);
+    context?.SaveChanges();
 
     return Results.Created($"/v1/vagas/{vaga.Id}", vaga);
 });
@@ -46,7 +46,7 @@ app.MapPut("/v1/vagas", (AppDbContext context, AlterVagaViewModel model) =>
     if (!model.IsValid)
     { return Results.BadRequest(model.Notifications); }
 
-    var vaga = context.Vagas.FirstOrDefault(v => v.Id == model.Id);
+    var vaga = context?.Vagas?.FirstOrDefault(v => v.Id == model.Id);
 
     if (vaga is not null)
     {
@@ -55,7 +55,7 @@ app.MapPut("/v1/vagas", (AppDbContext context, AlterVagaViewModel model) =>
         vaga.TipoVaga = model.TipoVaga;
         vaga.ValorHora = model.ValorHora;
 
-        context.SaveChanges();
+        context?.SaveChanges();
         return Results.Created($"/v1/vagas/{modelVaga.Id}", modelVaga);
     }
 
