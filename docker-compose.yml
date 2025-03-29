@@ -1,0 +1,32 @@
+version: "3.8"
+
+services:
+  backend:
+    build:
+      context: .  # Usa a raiz como diretório de build do backend
+      dockerfile: Dockerfile  # O Dockerfile das APIs está na raiz
+    ports:
+      - "5001:5001"
+      - "5002:5002"
+      - "5003:5003"
+    restart: always
+    networks:
+      - app-network
+
+  frontend:
+    build:
+      context: ./BackOffice-SmartPark/backoffice-smartpark  # Caminho correto do frontend
+      dockerfile: Dockerfile  # Dockerfile dentro dessa pasta
+      args:
+        - --no-cache
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
