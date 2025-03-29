@@ -1,4 +1,4 @@
-import { List, Datagrid, TextField, FunctionField } from "react-admin";
+import { List, Datagrid, FunctionField } from "react-admin";
 import StatusVagaChip from "../../components/StatusVagaChip";
 import TipoVagaField from "../../components/TipoVagaField";
 

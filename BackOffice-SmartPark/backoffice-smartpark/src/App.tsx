@@ -6,6 +6,7 @@ import { PagamentosCreate } from "./pages/pagamentos/PagamentosCreate";
 import CustomLayout from "./components/CustomLayout";
 import dataProvider from "./dataProvider";
 import { VagasShow } from "./pages/vagas/VagasShow";
+import { PagamentoShow } from "./pages/pagamentos/PagamentoShow";
 
 export const App = () => (
   <Admin layout={CustomLayout} dataProvider={dataProvider}>
@@ -19,6 +20,7 @@ export const App = () => (
       name="pagamentos"
       list={PagamentosList}
       create={PagamentosCreate}
+      show={PagamentoShow}
     />
   </Admin>
 );

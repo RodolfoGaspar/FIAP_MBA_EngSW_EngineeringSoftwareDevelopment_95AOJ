@@ -3,18 +3,33 @@ using PagamentosAPI.ViewModels;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Configuração do CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("PermitirTudo", policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
+});
+
 builder.Services.AddDbContext<AppDbContext>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
 app.UseSwagger();
 app.UseSwaggerUI();
+
+// Habilita o CORS na aplicação
+app.UseCors("PermitirTudo");
 
 app.MapGet("/v1/pagamentos", (AppDbContext context) =>
 {
     var pagamentos = context.Pagamentos;
-    return pagamentos is not null ? Results.Ok(pagamentos) : Results.NotFound();
+    return pagamentos is not null ? Results.Ok(new { pagamentos }) : Results.NotFound();
 }).Produces<Pagamentos>();
 
 app.MapGet("/v1/pagamentos/{id}", (string id, AppDbContext context) =>
@@ -52,7 +67,7 @@ app.MapPut("/v1/pagamentos", (AppDbContext context, AlterPagamentoViewModel mode
         reserva.IdReserva = model.IdReserva;
         reserva.IdUsuario = model.IdUsuario;
         reserva.Valor = model.Valor;
-        reserva.MetodoPagamento = model.MetodoPagamento;        
+        reserva.MetodoPagamento = model.MetodoPagamento;
 
         context?.SaveChanges();
         return Results.Created($"/v1/reservas/{modelReserva.Id}", modelReserva);

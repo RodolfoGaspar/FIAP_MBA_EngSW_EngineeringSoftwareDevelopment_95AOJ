@@ -1,7 +1,7 @@
 import { Create, SimpleForm, TextInput, SelectInput } from "react-admin";
 import useBuscaTipoVaga from "../../api/hooks/useBuscaTipoVaga";
 import useBuscaStatus from "../../api/hooks/useBuscaStatus";
-import { Grid2 } from "@mui/material";
+import { Box, Grid2 } from "@mui/material";
 
 export const VagasCreate = () => {
   const { data, loading, error } = useBuscaStatus();
@@ -16,7 +16,7 @@ export const VagasCreate = () => {
   return (
     <Create>
       <SimpleForm>
-        <Grid2 container spacing={2}>
+        <Grid2 container spacing={2} sx={{ width: "100%" }}>
           <Grid2 size={{ xs: 12, md: 6 }}>
             <SelectInput
               fullWidth
