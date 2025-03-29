@@ -70,8 +70,8 @@ app.MapDelete("/v1/reservas/{id}", (string id, AppDbContext context) =>
         var reserva = context?.Reservas?.FirstOrDefault(r => r.Id == idReserva);
         if (reserva is not null)
         {
-            context.Remove(reserva);
-            if (context.SaveChanges() > 0)
+            context?.Remove(reserva);
+            if (context?.SaveChanges() > 0)
             { return Results.NoContent(); }
         }
     }
