@@ -1,7 +1,7 @@
 import { DataProvider, fetchUtils } from "react-admin";
 import { stringify } from "query-string";
 
-const apiUrl = "https://localhost:7250/v1";
+const apiUrl = "https://localhost:7252/v1";
 
 const httpClient = (url: string, options: fetchUtils.Options = {}) => {
   if (!options.headers) {
@@ -34,7 +34,7 @@ const dataProvider: DataProvider = {
 
     const { headers, json } = await httpClient(url);
     return {
-      data: Array.isArray(json.vagas) ? json.vagas : [],
+      data: Array.isArray(json.pagamentos) ? json.pagamentos : [],
       total: json.totalRecords,
     };
   },
