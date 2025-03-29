@@ -1,5 +1,20 @@
+# Etapa de build
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+
+# Define o diretório de trabalho dentro do container
+WORKDIR /src
+
+# Copia os arquivos do projeto para dentro do container
+COPY . . 
+
+# Restaura as dependências
+RUN dotnet restore
+
+# Compila e publica a aplicação
+RUN dotnet publish -c Release -o /app/out
+
 # Usa a imagem oficial do .NET 6 Runtime
-FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
+FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS runtime
 
 # Define o diretório de trabalho dentro do container
 WORKDIR /app
@@ -11,7 +26,7 @@ COPY VagasAPI/out/ ./VagasAPI/
 
 # Copiar o banco de dados SQLite para dentro do container
 COPY VagasAPI/Vagas.db /app/Vagas.db
-COPY ReservasAPI/reservas.db /app/reservas.db
+COPY ReservasAPI/Reservas.db /app/Reservas.db
 COPY PagamentosAPI/Pagamentos.db /app/Pagamentos.db
 
 # Listar os arquivos dentro do diretório /app/data para garantir que o arquivo foi copiado corretamente
