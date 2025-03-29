@@ -8,15 +8,15 @@ export const PagamentosList = () => (
     <Datagrid>
       <FunctionField
         source="id"
-        render={(record: Pagamento) => `${record.id}`}
+        render={(record: Pagamento) => `${record.id?.slice(0, 8)}...`}
       />
       <FunctionField
         source="idReserva"
-        render={(record: Pagamento) => `${record.idReserva}`}
+        render={(record: Pagamento) => `${record.idReserva?.slice(0, 8)}...`}
       />
       <FunctionField
         source="idUsuario"
-        render={(record: Pagamento) => `${record.idUsuario}`}
+        render={(record: Pagamento) => `${record.idUsuario?.slice(0, 8)}...`}
       />
       <FunctionField
         source="metodoPagamento"

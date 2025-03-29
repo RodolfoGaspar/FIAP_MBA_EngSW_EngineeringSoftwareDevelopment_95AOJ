@@ -1,10 +1,14 @@
 import axios from "axios";
 
-const api = axios.create({
+export const apiVagas = axios.create({
   baseURL: "https://localhost:7250/v1",
   headers: {
     "Content-Type": "application/json",
   },
 });
-
-export default api;
+export const apiPagamentos = axios.create({
+  baseURL: "https://localhost:7252/v1",
+  headers: {
+    "Content-Type": "application/json",
+  },
+});

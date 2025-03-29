@@ -1,4 +1,3 @@
-import React from "react";
 import { Show, SimpleShowLayout, FunctionField, Labeled } from "react-admin";
 import { Grid2 } from "@mui/material";
 import MetodoPagamentoChip from "../../components/MetodoPagamentoChip";
@@ -8,29 +7,33 @@ export const PagamentoShow = () => (
   <Show>
     <SimpleShowLayout>
       <Grid2 container spacing={4}>
-        {/* ID do Pagamento */}
         <Grid2 size={{ xs: 12, md: 6 }}>
           <Labeled>
             <FunctionField
               label="ID do Pagamento"
               source="id"
-              render={(record) => `${record.id?.slice(0, 8)}...`}
+              render={(record) => `${record.id}`}
             />
           </Labeled>
         </Grid2>
-
-        {/* ID da Reserva */}
         <Grid2 size={{ xs: 12, md: 6 }}>
           <Labeled>
             <FunctionField
               label="ID da Reserva"
               source="idReserva"
-              render={(record) => `${record.idReserva?.slice(0, 8)}...`}
+              render={(record) => `${record.idReserva}`}
             />
           </Labeled>
         </Grid2>
-
-        {/* Método de Pagamento */}
+        <Grid2 size={{ xs: 12, md: 6 }}>
+          <Labeled>
+            <FunctionField
+              label="ID do Usuário"
+              source="idUsuario"
+              render={(record) => `${record.idUsuario}`}
+            />
+          </Labeled>
+        </Grid2>
         <Grid2 size={{ xs: 12, md: 6 }}>
           <Labeled>
             <FunctionField
@@ -42,8 +45,6 @@ export const PagamentoShow = () => (
             />
           </Labeled>
         </Grid2>
-
-        {/* Status do Pagamento */}
         <Grid2 size={{ xs: 12, md: 6 }}>
           <Labeled>
             <FunctionField
@@ -55,8 +56,6 @@ export const PagamentoShow = () => (
             />
           </Labeled>
         </Grid2>
-
-        {/* Valor */}
         <Grid2 size={{ xs: 12, md: 6 }}>
           <Labeled>
             <FunctionField
@@ -66,8 +65,6 @@ export const PagamentoShow = () => (
             />
           </Labeled>
         </Grid2>
-
-        {/* Data de Criação */}
         <Grid2 size={{ xs: 12, md: 6 }}>
           <Labeled>
             <FunctionField
@@ -77,8 +74,6 @@ export const PagamentoShow = () => (
             />
           </Labeled>
         </Grid2>
-
-        {/* Data de Alteração */}
         <Grid2 size={{ xs: 12, md: 6 }}>
           <Labeled>
             <FunctionField
