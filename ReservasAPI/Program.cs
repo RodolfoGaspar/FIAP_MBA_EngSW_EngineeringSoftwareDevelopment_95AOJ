@@ -25,8 +25,8 @@ app.UseSwaggerUI();
 app.MapGet("/v1/reservas", (AppDbContext context) =>
 {
     var reservas = context.Reservas;
-    return reservas is not null ? Results.Ok(reservas) : Results.NotFound();
-}).Produces<Reservas>();
+    return reservas is not null ? Results.Ok(new { reservas }) : Results.NotFound();
+}).Produces<object>();
 
 app.MapGet("/v1/reservas/{id}", (string id, AppDbContext context) =>
 {
@@ -45,7 +45,7 @@ app.MapPost("/v1/reservas", (AppDbContext context, CreateReservaViewModel model)
     { return Results.BadRequest(model.Notifications); }
 
     context?.Reservas?.Add(reserva);
-    context.SaveChanges();
+    context?.SaveChanges();
 
     return Results.Created($"/v1/reservas/{reserva.Id}", reserva);
 });
@@ -67,7 +67,7 @@ app.MapPut("/v1/reservas", (AppDbContext context, AlterReservaViewModel model) =
         reserva.DataFim = model.DataFim;
         reserva.StatusReserva = model.StatusReserva;
 
-        context.SaveChanges();
+        context?.SaveChanges();
         return Results.Created($"/v1/reservas/{modelReserva.Id}", modelReserva);
     }
 
@@ -98,7 +98,7 @@ app.MapPut("/v1/reservas/cancelar/{id}", (string id, AppDbContext context) =>
         {
             reserva.StatusReserva = StatusReservaEnum.CANCELADA;
 
-            context.SaveChanges();
+            context?.SaveChanges();
             return Results.Created($"/v1/reservas/{id}", reserva);
         }
     }
