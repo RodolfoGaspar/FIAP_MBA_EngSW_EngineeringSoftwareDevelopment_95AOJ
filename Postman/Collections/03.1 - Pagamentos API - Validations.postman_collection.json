@@ -1,0 +1,543 @@
+{
+	"info": {
+		"_postman_id": "df06ab9c-0633-4fb8-a972-616e1cafbcdc",
+		"name": "03.1 - Pagamentos API - Validations",
+		"description": "Collection para testar as API's de pagamentos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17414745",
+		"_collection_link": "https://smart-park-7334.postman.co/workspace/c038a28b-c840-4f54-b997-2f87cbe750c5/collection/17414745-df06ab9c-0633-4fb8-a972-616e1cafbcdc?action=share&source=collection_link&creator=17414745"
+	},
+	"item": [
+		{
+			"name": "Criar Pagamento",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"valorPagamento\", require('lodash').random(1, 500, true).toFixed(2))\r",
+							"\r",
+							"randomMetodoPagamento = pm.variables.replaceIn(\"{{$randomInt}}\")\r",
+							"randomMetodoPagamento = Math.floor((randomMetodoPagamento / 1000) * (pm.environment.get(\"metodoPagamentoEnum\").length))\r",
+							"\r",
+							"pm.environment.set(\"metodoPagamento\", randomMetodoPagamento)\r",
+							"pm.environment.set(\"metodoPagamentoDescricao\", pm.environment.get(\"metodoPagamentoEnum\")[randomMetodoPagamento])\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(pm.response.text());\r",
+							"\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"    pm.environment.set(\"idPagamento\", jsonData.id)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Test idReserva\", function () {\r",
+							"    pm.expect(pm.environment.get(\"idReserva\")).to.equal(jsonData.idReserva);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Test idUsuario\", function () {\r",
+							"    pm.expect(pm.environment.get(\"idUsuario\")).to.equal(jsonData.idUsuario);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Test idUsuario\", function () {\r",
+							"    pm.expect(pm.environment.get(\"metodoPagamento\")).to.equal(jsonData.metodoPagamento);\r",
+							"    pm.expect(pm.environment.get(\"metodoPagamentoDescricao\")).to.equal(jsonData.metodoPagamentoDescricao);\r",
+							"});\r",
+							"\r",
+							"pm.environment.set(\"statusPagamento\", 0)\r",
+							"pm.environment.set(\"statusPagamentoDescricao\", pm.environment.get(\"statusPagamentoEnum\")[0])\r",
+							"\r",
+							"pm.test(\"Test idUsuario\", function () {\r",
+							"    pm.expect(pm.environment.get(\"statusPagamento\")).to.equal(jsonData.statusPagamento);\r",
+							"    pm.expect(pm.environment.get(\"statusPagamentoDescricao\")).to.equal(jsonData.statusPagamentoDescricao);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"idReserva\": \"{{idReserva}}\",\r\n  \"idUsuario\": \"{{idUsuario}}\",\r\n  \"valor\": {{valorPagamento}},\r\n  \"metodoPagamento\": {{metodoPagamento}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{urlPagamentos}}/v1/pagamentos",
+					"host": [
+						"{{urlPagamentos}}"
+					],
+					"path": [
+						"v1",
+						"pagamentos"
+					]
+				},
+				"description": "Endpoint para cadastrar novo pagamento"
+			},
+			"response": []
+		},
+		{
+			"name": "Consultar Pagamento",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(pm.response.text());\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Test idPagamento\", function () {\r",
+							"    pm.expect(pm.environment.get(\"idPagamento\")).to.equal(jsonData.id);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Test idReserva\", function () {\r",
+							"    pm.expect(pm.environment.get(\"idReserva\")).to.equal(jsonData.idReserva);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Test idUsuario\", function () {\r",
+							"    pm.expect(pm.environment.get(\"idUsuario\")).to.equal(jsonData.idUsuario);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Test idUsuario\", function () {\r",
+							"    pm.expect(pm.environment.get(\"metodoPagamento\")).to.equal(jsonData.metodoPagamento);\r",
+							"    pm.expect(pm.environment.get(\"metodoPagamentoDescricao\")).to.equal(jsonData.metodoPagamentoDescricao);\r",
+							"});\r",
+							"\r",
+							"pm.environment.set(\"statusPagamento\", 0)\r",
+							"pm.environment.set(\"statusPagamentoDescricao\", pm.environment.get(\"statusPagamentoEnum\")[0])\r",
+							"\r",
+							"pm.test(\"Test idUsuario\", function () {\r",
+							"    pm.expect(pm.environment.get(\"statusPagamento\")).to.equal(jsonData.statusPagamento);\r",
+							"    pm.expect(pm.environment.get(\"statusPagamentoDescricao\")).to.equal(jsonData.statusPagamentoDescricao);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{urlPagamentos}}/v1/pagamentos/{{idPagamento}}",
+					"host": [
+						"{{urlPagamentos}}"
+					],
+					"path": [
+						"v1",
+						"pagamentos",
+						"{{idPagamento}}"
+					]
+				},
+				"description": "Endpoint para consultar um pagamento específico"
+			},
+			"response": []
+		},
+		{
+			"name": "Alterar Pagamento",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"valorPagamento\", require('lodash').random(1, 500, true).toFixed(2))\r",
+							"\r",
+							"randomMetodoPagamento = pm.variables.replaceIn(\"{{$randomInt}}\")\r",
+							"randomMetodoPagamento = Math.floor((randomMetodoPagamento / 1000) * (pm.environment.get(\"metodoPagamentoEnum\").length))\r",
+							"\r",
+							"pm.environment.set(\"metodoPagamento\", randomMetodoPagamento)\r",
+							"pm.environment.set(\"metodoPagamentoDescricao\", pm.environment.get(\"metodoPagamentoEnum\")[randomMetodoPagamento])\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(pm.response.text());\r",
+							"\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Test idPagamento\", function () {\r",
+							"    pm.expect(pm.environment.get(\"idPagamento\")).to.equal(jsonData.id);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Test idReserva\", function () {\r",
+							"    pm.expect(pm.environment.get(\"idReserva\")).to.equal(jsonData.idReserva);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Test idUsuario\", function () {\r",
+							"    pm.expect(pm.environment.get(\"idUsuario\")).to.equal(jsonData.idUsuario);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Test metodoPagamento\", function () {\r",
+							"    pm.expect(pm.environment.get(\"metodoPagamento\")).to.equal(jsonData.metodoPagamento);\r",
+							"    pm.expect(pm.environment.get(\"metodoPagamentoDescricao\")).to.equal(jsonData.metodoPagamentoDescricao);\r",
+							"});\r",
+							"\r",
+							"pm.environment.set(\"statusPagamento\", 0)\r",
+							"pm.environment.set(\"statusPagamentoDescricao\", pm.environment.get(\"statusPagamentoEnum\")[0])\r",
+							"\r",
+							"pm.test(\"Test idUsuario\", function () {\r",
+							"    pm.expect(pm.environment.get(\"statusPagamento\")).to.equal(jsonData.statusPagamento);\r",
+							"    pm.expect(pm.environment.get(\"statusPagamentoDescricao\")).to.equal(jsonData.statusPagamentoDescricao);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": \"{{idPagamento}}\",\r\n  \"idReserva\": \"{{idReserva}}\",\r\n  \"idUsuario\": \"{{idUsuario}}\",\r\n  \"metodoPagamento\": {{metodoPagamento}},\r\n  \"valor\": \"{{valorPagamento}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{urlPagamentos}}/v1/pagamentos",
+					"host": [
+						"{{urlPagamentos}}"
+					],
+					"path": [
+						"v1",
+						"pagamentos"
+					]
+				},
+				"description": "Endpoint para alterar um pagamento"
+			},
+			"response": []
+		},
+		{
+			"name": "Excluir Pagamento",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{urlPagamentos}}/v1/pagamentos/{{idPagamento}}",
+					"host": [
+						"{{urlPagamentos}}"
+					],
+					"path": [
+						"v1",
+						"pagamentos",
+						"{{idPagamento}}"
+					]
+				},
+				"description": "Endpoint para excluir um pagamento"
+			},
+			"response": []
+		},
+		{
+			"name": "Consultar Pagamento - Excluída",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{urlPagamentos}}/v1/pagamentos/{{idPagamento}}",
+					"host": [
+						"{{urlPagamentos}}"
+					],
+					"path": [
+						"v1",
+						"pagamentos",
+						"{{idPagamento}}"
+					]
+				},
+				"description": "Endpoint para consultar um pagamento específico"
+			},
+			"response": []
+		},
+		{
+			"name": "Alterar Pagamento- Excluída",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"valorPagamento\", require('lodash').random(1, 500, true).toFixed(2))\r",
+							"\r",
+							"randomMetodoPagamento = pm.variables.replaceIn(\"{{$randomInt}}\")\r",
+							"randomMetodoPagamento = Math.floor((randomMetodoPagamento / 1000) * (pm.environment.get(\"metodoPagamentoEnum\").length))\r",
+							"\r",
+							"pm.environment.set(\"metodoPagamento\", randomMetodoPagamento)\r",
+							"pm.environment.set(\"metodoPagamentoDescricao\", pm.environment.get(\"metodoPagamentoEnum\")[randomMetodoPagamento])\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": \"{{idPagamento}}\",\r\n  \"idReserva\": \"{{idReserva}}\",\r\n  \"idUsuario\": \"{{idUsuario}}\",\r\n  \"metodoPagamento\": {{metodoPagamento}},\r\n  \"valor\": \"{{valorPagamento}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{urlPagamentos}}/v1/pagamentos",
+					"host": [
+						"{{urlPagamentos}}"
+					],
+					"path": [
+						"v1",
+						"pagamentos"
+					]
+				},
+				"description": "Endpoint para alterar um pagamento"
+			},
+			"response": []
+		},
+		{
+			"name": "Criar Pagamento - Erro Valor",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"valorPagamento\", require('lodash').random(1, 500, true).toFixed(2))\r",
+							"\r",
+							"randomMetodoPagamento = pm.variables.replaceIn(\"{{$randomInt}}\")\r",
+							"randomMetodoPagamento = Math.floor((randomMetodoPagamento / 1000) * (pm.environment.get(\"metodoPagamentoEnum\").length))\r",
+							"\r",
+							"pm.environment.set(\"metodoPagamento\", randomMetodoPagamento)\r",
+							"pm.environment.set(\"metodoPagamentoDescricao\", pm.environment.get(\"metodoPagamentoEnum\")[randomMetodoPagamento])\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"idReserva\": \"{{idReserva}}\",\r\n  \"idUsuario\": \"{{idUsuario}}\",\r\n  \"valor\": 0,\r\n  \"metodoPagamento\": {{metodoPagamento}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{urlPagamentos}}/v1/pagamentos",
+					"host": [
+						"{{urlPagamentos}}"
+					],
+					"path": [
+						"v1",
+						"pagamentos"
+					]
+				},
+				"description": "Endpoint para cadastrar novo pagamento"
+			},
+			"response": []
+		},
+		{
+			"name": "Criar Pagamento - Erro Metodo",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"valorPagamento\", require('lodash').random(1, 500, true).toFixed(2))\r",
+							"\r",
+							"pm.environment.set(\"metodoPagamento\", 11)\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"idReserva\": \"{{idReserva}}\",\r\n  \"idUsuario\": \"{{idUsuario}}\",\r\n  \"valor\": {{valorPagamento}},\r\n  \"metodoPagamento\": {{metodoPagamento}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{urlPagamentos}}/v1/pagamentos",
+					"host": [
+						"{{urlPagamentos}}"
+					],
+					"path": [
+						"v1",
+						"pagamentos"
+					]
+				},
+				"description": "Endpoint para cadastrar novo pagamento"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					"pm.environment.set(\"metodoPagamentoEnum\",[\"PIX\",\"DEBITO\",\"CREDITO\",\"DINHEIRO\"])\r",
+					"pm.environment.set(\"statusPagamentoEnum\",[\"PENDENTE\",\"EFETUADO\",\"RECUSADO\"])"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

@@ -1,0 +1,494 @@
+{
+	"info": {
+		"_postman_id": "de323984-8546-4ce6-a9f3-d55ec3d30b1f",
+		"name": "01 - Vagas API - SuccessFlow",
+		"description": "Collection para testar as API's de vagas",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17414745",
+		"_collection_link": "https://smart-park-7334.postman.co/workspace/c038a28b-c840-4f54-b997-2f87cbe750c5/collection/17414745-de323984-8546-4ce6-a9f3-d55ec3d30b1f?action=share&source=collection_link&creator=17414745"
+	},
+	"item": [
+		{
+			"name": "Listar Estacionamentos",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(pm.response.text());\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.environment.set(\"estacionamentos\", jsonData.estacionamenos)\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{urlVagas}}/v1/estacionamentos",
+					"host": [
+						"{{urlVagas}}"
+					],
+					"path": [
+						"v1",
+						"estacionamentos"
+					]
+				},
+				"description": "Endpoint para listar todos os estacionamentos"
+			},
+			"response": []
+		},
+		{
+			"name": "Criar Vaga",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(pm.response.text());\r",
+							"\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"    pm.environment.set(\"idVaga\", jsonData.id)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Test IdEstacionamento\", function () {\r",
+							"    pm.expect(pm.environment.get(\"idEstacionamento\")).to.equal(jsonData.idEstacionamento);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Test StatusVaga\", function () {\r",
+							"    pm.expect(pm.environment.get(\"statusVaga\")).to.equal(jsonData.status);\r",
+							"    pm.expect(pm.environment.get(\"statusVagaDescricao\")).to.equal(jsonData.statusDescricao);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Test TipoVaga\", function () {\r",
+							"    pm.expect(pm.environment.get(\"tipoVaga\")).to.equal(jsonData.tipoVaga);\r",
+							"    pm.expect(pm.environment.get(\"tipoVagaDescricao\")).to.equal(jsonData.tipoVagaDescricao);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Test ValorHora\", function () {\r",
+							"    pm.expect(parseFloat(pm.environment.get(\"valorHora\"))).to.equal(jsonData.valorHora);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"valorHora\", require('lodash').random(1, 50, true).toFixed(2))\r",
+							"\r",
+							"randomEstacionamento = pm.variables.replaceIn(\"{{$randomInt}}\")\r",
+							"randomEstacionamento = Math.floor((randomEstacionamento / 1000) * (pm.environment.get(\"estacionamentos\").length))\r",
+							"\r",
+							"pm.environment.set(\"idEstacionamento\", pm.environment.get(\"estacionamentos\")[randomEstacionamento].id)\r",
+							"pm.environment.set(\"nomeEstacionamento\", pm.environment.get(\"estacionamentos\")[randomEstacionamento].nome)\r",
+							"\r",
+							"randomStatus = pm.variables.replaceIn(\"{{$randomInt}}\")\r",
+							"randomStatus = Math.floor((randomStatus / 1000) * (pm.environment.get(\"statusVagaEnum\").length))\r",
+							"\r",
+							"pm.environment.set(\"statusVaga\", randomStatus)\r",
+							"pm.environment.set(\"statusVagaDescricao\", pm.environment.get(\"statusVagaEnum\")[randomStatus])\r",
+							"\r",
+							"randomTipo = pm.variables.replaceIn(\"{{$randomInt}}\")\r",
+							"randomTipo = Math.floor((randomTipo / 1000) * (pm.environment.get(\"tipoVagaEnum\").length))\r",
+							"\r",
+							"pm.environment.set(\"tipoVaga\", randomTipo)\r",
+							"pm.environment.set(\"tipoVagaDescricao\", pm.environment.get(\"tipoVagaEnum\")[randomTipo])\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"idEstacionamento\": \"{{idEstacionamento}}\",\r\n  \"status\": {{statusVaga}},\r\n  \"tipoVaga\": {{tipoVaga}},\r\n  \"valorHora\": {{valorHora}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{urlVagas}}/v1/vagas",
+					"host": [
+						"{{urlVagas}}"
+					],
+					"path": [
+						"v1",
+						"vagas"
+					]
+				},
+				"description": "Endpoint para cadastrar nova vaga"
+			},
+			"response": []
+		},
+		{
+			"name": "Listar Vagas",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(pm.response.text());\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Vagas existem\", function () {\r",
+							"    pm.expect(jsonData.vagas).to.have.length.above(0);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{urlVagas}}/v1/vagas",
+					"host": [
+						"{{urlVagas}}"
+					],
+					"path": [
+						"v1",
+						"vagas"
+					]
+				},
+				"description": "Endpoint para listar todas as vagas cadastradas"
+			},
+			"response": []
+		},
+		{
+			"name": "Consultar Vaga",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(pm.response.text());\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Test Id\", function () {\r",
+							"    pm.expect(pm.environment.get(\"idVaga\")).to.equal(jsonData.id);\r",
+							"});\r",
+							"pm.test(\"Test IdEstacionamento\", function () {\r",
+							"    pm.expect(pm.environment.get(\"idEstacionamento\")).to.equal(jsonData.idEstacionamento);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Test StatusVaga\", function () {\r",
+							"    pm.expect(pm.environment.get(\"statusVaga\")).to.equal(jsonData.status);\r",
+							"    pm.expect(pm.environment.get(\"statusVagaDescricao\")).to.equal(jsonData.statusDescricao);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Test TipoVaga\", function () {\r",
+							"    pm.expect(pm.environment.get(\"tipoVaga\")).to.equal(jsonData.tipoVaga);\r",
+							"    pm.expect(pm.environment.get(\"tipoVagaDescricao\")).to.equal(jsonData.tipoVagaDescricao);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Test ValorHora\", function () {\r",
+							"    pm.expect(parseFloat(pm.environment.get(\"valorHora\"))).to.equal(jsonData.valorHora);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{urlVagas}}/v1/vagas/{{idVaga}}",
+					"host": [
+						"{{urlVagas}}"
+					],
+					"path": [
+						"v1",
+						"vagas",
+						"{{idVaga}}"
+					]
+				},
+				"description": "Endpoint para consultar uma vaga específica"
+			},
+			"response": []
+		},
+		{
+			"name": "Alterar Vaga",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"valorHora\", require('lodash').random(1, 50, true).toFixed(2))\r",
+							"\r",
+							"randomEstacionamento = pm.variables.replaceIn(\"{{$randomInt}}\")\r",
+							"randomEstacionamento = Math.floor((randomEstacionamento / 1000) * (pm.environment.get(\"estacionamentos\").length))\r",
+							"\r",
+							"pm.environment.set(\"idEstacionamento\", pm.environment.get(\"estacionamentos\")[randomEstacionamento].id)\r",
+							"pm.environment.set(\"nomeEstacionamento\", pm.environment.get(\"estacionamentos\")[randomEstacionamento].nome)\r",
+							"\r",
+							"randomStatus = pm.variables.replaceIn(\"{{$randomInt}}\")\r",
+							"randomStatus = Math.floor((randomStatus / 1000) * (pm.environment.get(\"statusVagaEnum\").length))\r",
+							"\r",
+							"pm.environment.set(\"statusVaga\", randomStatus)\r",
+							"pm.environment.set(\"statusVagaDescricao\", pm.environment.get(\"statusVagaEnum\")[randomStatus])\r",
+							"\r",
+							"randomTipo = pm.variables.replaceIn(\"{{$randomInt}}\")\r",
+							"randomTipo = Math.floor((randomTipo / 1000) * (pm.environment.get(\"tipoVagaEnum\").length))\r",
+							"\r",
+							"pm.environment.set(\"tipoVaga\", randomTipo)\r",
+							"pm.environment.set(\"tipoVagaDescricao\", pm.environment.get(\"tipoVagaEnum\")[randomTipo])\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(pm.response.text());\r",
+							"\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Test Id\", function () {\r",
+							"    pm.expect(pm.environment.get(\"idVaga\")).to.equal(jsonData.id);\r",
+							"});\r",
+							"pm.test(\"Test IdEstacionamento\", function () {\r",
+							"    pm.expect(pm.environment.get(\"idEstacionamento\")).to.equal(jsonData.idEstacionamento);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Test StatusVaga\", function () {\r",
+							"    pm.expect(pm.environment.get(\"statusVaga\")).to.equal(jsonData.status);\r",
+							"    pm.expect(pm.environment.get(\"statusVagaDescricao\")).to.equal(jsonData.statusDescricao);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Test TipoVaga\", function () {\r",
+							"    pm.expect(pm.environment.get(\"tipoVaga\")).to.equal(jsonData.tipoVaga);\r",
+							"    pm.expect(pm.environment.get(\"tipoVagaDescricao\")).to.equal(jsonData.tipoVagaDescricao);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Test ValorHora\", function () {\r",
+							"    pm.expect(parseFloat(pm.environment.get(\"valorHora\"))).to.equal(jsonData.valorHora);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"{{idVaga}}\",\r\n    \"idEstacionamento\": \"{{idEstacionamento}}\",\r\n    \"status\": {{statusVaga}},\r\n    \"tipoVaga\": {{tipoVaga}},\r\n    \"valorHora\": {{valorHora}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{urlVagas}}/v1/vagas",
+					"host": [
+						"{{urlVagas}}"
+					],
+					"path": [
+						"v1",
+						"vagas"
+					]
+				},
+				"description": "Endpoint para alterar o cadastro de uma vaga"
+			},
+			"response": []
+		},
+		{
+			"name": "Excluir Vaga",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{urlVagas}}/v1/vagas/{{idVaga}}",
+					"host": [
+						"{{urlVagas}}"
+					],
+					"path": [
+						"v1",
+						"vagas",
+						"{{idVaga}}"
+					]
+				},
+				"description": "Endpoint para excluir uma vaga"
+			},
+			"response": []
+		},
+		{
+			"name": "Listar Status Vagas",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{urlVagas}}/v1/vagas/status",
+					"host": [
+						"{{urlVagas}}"
+					],
+					"path": [
+						"v1",
+						"vagas",
+						"status"
+					]
+				},
+				"description": "Endpoint para obter os status possíveis de uma vaga"
+			},
+			"response": []
+		},
+		{
+			"name": "Listar Tipo Vagas",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{urlVagas}}/v1/vagas/tipos",
+					"host": [
+						"{{urlVagas}}"
+					],
+					"path": [
+						"v1",
+						"vagas",
+						"tipos"
+					]
+				},
+				"description": "Endpoint para obter os tipos de uma vaga"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					"pm.environment.set(\"statusVagaEnum\",[\"DISPONIVEL\",\"RESERVADA\",\"BLOQUEADA\"])\r",
+					"pm.environment.set(\"tipoVagaEnum\",[\"COBERTA\",\"DESCOBERTA\"])"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

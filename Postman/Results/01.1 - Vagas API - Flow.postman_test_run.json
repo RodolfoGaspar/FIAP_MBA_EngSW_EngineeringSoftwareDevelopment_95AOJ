@@ -1,0 +1,385 @@
+{
+	"id": "cc3b0a20-967f-4693-b78f-61e675af94ce",
+	"name": "01.1 - Vagas API - Validations",
+	"timestamp": "2025-03-29T23:02:15.301Z",
+	"collection_id": "17414745-30ab7b31-dea7-418e-a4aa-2ebeb9594b83",
+	"folder_id": 0,
+	"environment_id": "17414745-fcabb485-b28c-4b77-87c5-757451100b54",
+	"totalPass": 23,
+	"delay": 0,
+	"persist": true,
+	"status": "finished",
+	"startedAt": "2025-03-29T23:02:14.185Z",
+	"totalFail": 0,
+	"results": [
+		{
+			"id": "5733a459-99f8-4a8e-b234-859002116e90",
+			"name": "Listar Estacionamentos",
+			"url": "http://localhost:5001/v1/estacionamentos",
+			"time": 13,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				13
+			],
+			"allTests": [
+				{
+					"Status code is 200": true
+				}
+			]
+		},
+		{
+			"id": "2ce11aa3-4219-4e80-bdc2-e7347361d8c7",
+			"name": "Criar Vaga",
+			"url": "http://localhost:5001/v1/vagas",
+			"time": 26,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Status code is 201": true,
+				"Test IdEstacionamento": true,
+				"Test StatusVaga": true,
+				"Test TipoVaga": true,
+				"Test ValorHora": true
+			},
+			"testPassFailCounts": {
+				"Status code is 201": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Test IdEstacionamento": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Test StatusVaga": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Test TipoVaga": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Test ValorHora": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				26
+			],
+			"allTests": [
+				{
+					"Status code is 201": true,
+					"Test IdEstacionamento": true,
+					"Test StatusVaga": true,
+					"Test TipoVaga": true,
+					"Test ValorHora": true
+				}
+			]
+		},
+		{
+			"id": "ceef5765-6aca-46b6-be9d-08729b53bef1",
+			"name": "Consultar Vaga",
+			"url": "http://localhost:5001/v1/vagas/e511408f-6a5b-4bf5-9b4f-a61342c86760",
+			"time": 12,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Test Id": true,
+				"Test IdEstacionamento": true,
+				"Test StatusVaga": true,
+				"Test TipoVaga": true,
+				"Test ValorHora": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Test Id": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Test IdEstacionamento": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Test StatusVaga": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Test TipoVaga": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Test ValorHora": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				12
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Test Id": true,
+					"Test IdEstacionamento": true,
+					"Test StatusVaga": true,
+					"Test TipoVaga": true,
+					"Test ValorHora": true
+				}
+			]
+		},
+		{
+			"id": "2566c5a8-97ae-484d-add4-42a0f90c130a",
+			"name": "Alterar Vaga",
+			"url": "http://localhost:5001/v1/vagas",
+			"time": 23,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Status code is 201": true,
+				"Test Id": true,
+				"Test IdEstacionamento": true,
+				"Test StatusVaga": true,
+				"Test TipoVaga": true,
+				"Test ValorHora": true
+			},
+			"testPassFailCounts": {
+				"Status code is 201": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Test Id": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Test IdEstacionamento": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Test StatusVaga": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Test TipoVaga": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Test ValorHora": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				23
+			],
+			"allTests": [
+				{
+					"Status code is 201": true,
+					"Test Id": true,
+					"Test IdEstacionamento": true,
+					"Test StatusVaga": true,
+					"Test TipoVaga": true,
+					"Test ValorHora": true
+				}
+			]
+		},
+		{
+			"id": "f6634783-205e-4da2-906b-f360587499a9",
+			"name": "Excluir Vaga",
+			"url": "http://localhost:5001/v1/vagas/e511408f-6a5b-4bf5-9b4f-a61342c86760",
+			"time": 22,
+			"responseCode": {
+				"code": 204,
+				"name": "No Content"
+			},
+			"tests": {
+				"Status code is 204": true
+			},
+			"testPassFailCounts": {
+				"Status code is 204": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				22
+			],
+			"allTests": [
+				{
+					"Status code is 204": true
+				}
+			]
+		},
+		{
+			"id": "8013406f-25a6-41e9-bcb6-d9e34edb250d",
+			"name": "Consultar Vaga Excluída",
+			"url": "http://localhost:5001/v1/vagas/e511408f-6a5b-4bf5-9b4f-a61342c86760",
+			"time": 8,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status code is 404": true
+			},
+			"testPassFailCounts": {
+				"Status code is 404": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				8
+			],
+			"allTests": [
+				{
+					"Status code is 404": true
+				}
+			]
+		},
+		{
+			"id": "e86eb4be-b5e9-4001-8ed7-e70af86f7ae8",
+			"name": "Alterar Vaga Excluída",
+			"url": "http://localhost:5001/v1/vagas",
+			"time": 9,
+			"responseCode": {
+				"code": 204,
+				"name": "No Content"
+			},
+			"tests": {
+				"Status code is 204": true
+			},
+			"testPassFailCounts": {
+				"Status code is 204": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				9
+			],
+			"allTests": [
+				{
+					"Status code is 204": true
+				}
+			]
+		},
+		{
+			"id": "2cb733c2-8e20-464f-a963-66bdaf48848d",
+			"name": "Criar Vaga - Erro Status",
+			"url": "http://localhost:5001/v1/vagas",
+			"time": 4,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status code is 400": true
+			},
+			"testPassFailCounts": {
+				"Status code is 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				4
+			],
+			"allTests": [
+				{
+					"Status code is 400": true
+				}
+			]
+		},
+		{
+			"id": "07c7b387-90de-474a-b806-6612d2fd78e1",
+			"name": "Criar Vaga - Erro Tipo Vaga",
+			"url": "http://localhost:5001/v1/vagas",
+			"time": 5,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status code is 400": true
+			},
+			"testPassFailCounts": {
+				"Status code is 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				5
+			],
+			"allTests": [
+				{
+					"Status code is 400": true
+				}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 122,
+	"collection": {
+		"requests": [
+			{
+				"id": "5733a459-99f8-4a8e-b234-859002116e90",
+				"method": "GET"
+			},
+			{
+				"id": "2ce11aa3-4219-4e80-bdc2-e7347361d8c7",
+				"method": "POST"
+			},
+			{
+				"id": "ceef5765-6aca-46b6-be9d-08729b53bef1",
+				"method": "GET"
+			},
+			{
+				"id": "2566c5a8-97ae-484d-add4-42a0f90c130a",
+				"method": "PUT"
+			},
+			{
+				"id": "f6634783-205e-4da2-906b-f360587499a9",
+				"method": "DELETE"
+			},
+			{
+				"id": "8013406f-25a6-41e9-bcb6-d9e34edb250d",
+				"method": "GET"
+			},
+			{
+				"id": "e86eb4be-b5e9-4001-8ed7-e70af86f7ae8",
+				"method": "PUT"
+			},
+			{
+				"id": "2cb733c2-8e20-464f-a963-66bdaf48848d",
+				"method": "POST"
+			},
+			{
+				"id": "07c7b387-90de-474a-b806-6612d2fd78e1",
+				"method": "POST"
+			}
+		]
+	}
+}

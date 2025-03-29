@@ -1,0 +1,324 @@
+{
+	"id": "bed80481-d014-41e3-96a0-cabba128efab",
+	"name": "03 - Pagamentos API - Validations",
+	"timestamp": "2025-03-29T23:04:24.996Z",
+	"collection_id": "17414745-df06ab9c-0633-4fb8-a972-616e1cafbcdc",
+	"folder_id": 0,
+	"environment_id": "17414745-fcabb485-b28c-4b77-87c5-757451100b54",
+	"totalPass": 22,
+	"delay": 0,
+	"persist": true,
+	"status": "finished",
+	"startedAt": "2025-03-29T23:04:23.896Z",
+	"totalFail": 0,
+	"results": [
+		{
+			"id": "7add50d3-3ecf-49be-b5b9-fffeee70a850",
+			"name": "Criar Pagamento",
+			"url": "http://localhost:5003/v1/pagamentos",
+			"time": 23,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Status code is 201": true,
+				"Test idReserva": true,
+				"Test idUsuario": true
+			},
+			"testPassFailCounts": {
+				"Status code is 201": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Test idReserva": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Test idUsuario": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				23
+			],
+			"allTests": [
+				{
+					"Status code is 201": true,
+					"Test idReserva": true,
+					"Test idUsuario": true
+				}
+			]
+		},
+		{
+			"id": "026fe8f3-4fe9-4c20-aab0-5662390ae7ed",
+			"name": "Consultar Pagamento",
+			"url": "http://localhost:5003/v1/pagamentos/7765a35c-e236-42cc-b856-9708f22072f5",
+			"time": 15,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Test idPagamento": true,
+				"Test idReserva": true,
+				"Test idUsuario": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Test idPagamento": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Test idReserva": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Test idUsuario": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				15
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Test idPagamento": true,
+					"Test idReserva": true,
+					"Test idUsuario": true
+				}
+			]
+		},
+		{
+			"id": "b948d0f2-d017-4d9e-bdb8-d4cb63c42e33",
+			"name": "Alterar Pagamento",
+			"url": "http://localhost:5003/v1/pagamentos",
+			"time": 37,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Status code is 201": true,
+				"Test idPagamento": true,
+				"Test idReserva": true,
+				"Test idUsuario": true,
+				"Test metodoPagamento": true
+			},
+			"testPassFailCounts": {
+				"Status code is 201": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Test idPagamento": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Test idReserva": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Test idUsuario": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Test metodoPagamento": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				37
+			],
+			"allTests": [
+				{
+					"Status code is 201": true,
+					"Test idPagamento": true,
+					"Test idReserva": true,
+					"Test idUsuario": true,
+					"Test metodoPagamento": true
+				}
+			]
+		},
+		{
+			"id": "7ecfca5a-8f14-4c89-b9c6-54c5e9c028f9",
+			"name": "Excluir Pagamento",
+			"url": "http://localhost:5003/v1/pagamentos/7765a35c-e236-42cc-b856-9708f22072f5",
+			"time": 22,
+			"responseCode": {
+				"code": 204,
+				"name": "No Content"
+			},
+			"tests": {
+				"Status code is 204": true
+			},
+			"testPassFailCounts": {
+				"Status code is 204": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				22
+			],
+			"allTests": [
+				{
+					"Status code is 204": true
+				}
+			]
+		},
+		{
+			"id": "045dc299-d173-404e-b9b1-8b8aaccddfba",
+			"name": "Consultar Pagamento - Excluída",
+			"url": "http://localhost:5003/v1/pagamentos/7765a35c-e236-42cc-b856-9708f22072f5",
+			"time": 14,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status code is 404": true
+			},
+			"testPassFailCounts": {
+				"Status code is 404": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				14
+			],
+			"allTests": [
+				{
+					"Status code is 404": true
+				}
+			]
+		},
+		{
+			"id": "26e858c3-5cef-4cb0-8ae0-3410c7d0d8a0",
+			"name": "Alterar Pagamento- Excluída",
+			"url": "http://localhost:5003/v1/pagamentos",
+			"time": 9,
+			"responseCode": {
+				"code": 204,
+				"name": "No Content"
+			},
+			"tests": {
+				"Status code is 204": true
+			},
+			"testPassFailCounts": {
+				"Status code is 204": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				9
+			],
+			"allTests": [
+				{
+					"Status code is 204": true
+				}
+			]
+		},
+		{
+			"id": "f16cfca9-65a2-4a12-af72-6efd3315477e",
+			"name": "Criar Pagamento - Erro Valor",
+			"url": "http://localhost:5003/v1/pagamentos",
+			"time": 6,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status code is 400": true
+			},
+			"testPassFailCounts": {
+				"Status code is 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				6
+			],
+			"allTests": [
+				{
+					"Status code is 400": true
+				}
+			]
+		},
+		{
+			"id": "04c92890-23d9-4b93-a52f-aaa71b5352cc",
+			"name": "Criar Pagamento - Erro Metodo",
+			"url": "http://localhost:5003/v1/pagamentos",
+			"time": 5,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status code is 400": true
+			},
+			"testPassFailCounts": {
+				"Status code is 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				5
+			],
+			"allTests": [
+				{
+					"Status code is 400": true
+				}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 131,
+	"collection": {
+		"requests": [
+			{
+				"id": "7add50d3-3ecf-49be-b5b9-fffeee70a850",
+				"method": "POST"
+			},
+			{
+				"id": "026fe8f3-4fe9-4c20-aab0-5662390ae7ed",
+				"method": "GET"
+			},
+			{
+				"id": "b948d0f2-d017-4d9e-bdb8-d4cb63c42e33",
+				"method": "PUT"
+			},
+			{
+				"id": "7ecfca5a-8f14-4c89-b9c6-54c5e9c028f9",
+				"method": "DELETE"
+			},
+			{
+				"id": "045dc299-d173-404e-b9b1-8b8aaccddfba",
+				"method": "GET"
+			},
+			{
+				"id": "26e858c3-5cef-4cb0-8ae0-3410c7d0d8a0",
+				"method": "PUT"
+			},
+			{
+				"id": "f16cfca9-65a2-4a12-af72-6efd3315477e",
+				"method": "POST"
+			},
+			{
+				"id": "04c92890-23d9-4b93-a52f-aaa71b5352cc",
+				"method": "POST"
+			}
+		]
+	}
+}

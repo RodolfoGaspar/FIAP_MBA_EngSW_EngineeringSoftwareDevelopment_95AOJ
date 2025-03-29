@@ -1,0 +1,542 @@
+{
+	"info": {
+		"_postman_id": "487d3146-48e6-4cb0-856e-594e7d45c08d",
+		"name": "02 - Reservas API - SuccessFlow",
+		"description": "Collection para testar as API's de reservas",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17414745",
+		"_collection_link": "https://smart-park-7334.postman.co/workspace/c038a28b-c840-4f54-b997-2f87cbe750c5/collection/17414745-487d3146-48e6-4cb0-856e-594e7d45c08d?action=share&source=collection_link&creator=17414745"
+	},
+	"item": [
+		{
+			"name": "Criar Reserva",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"idUsuario\", pm.variables.replaceIn(\"{{$guid}}\"))\r",
+							"\r",
+							"randomReserva = pm.variables.replaceIn(\"{{$randomInt}}\")\r",
+							"randomReserva = Math.floor((randomReserva / 1000) * (pm.environment.get(\"statusReservaEnum\").length))\r",
+							"\r",
+							"pm.environment.set(\"statusReserva\", randomReserva)\r",
+							"pm.environment.set(\"statusReservaDescricao\", pm.environment.get(\"statusReservaEnum\")[randomReserva])\r",
+							"\r",
+							"// Função para gerar um número aleatório entre dois valores\r",
+							"function getRandomInt(min, max) {\r",
+							"    return Math.floor(Math.random() * (max - min + 1)) + min;\r",
+							"}\r",
+							"\r",
+							"// Data atual\r",
+							"var now = new Date();\r",
+							"\r",
+							"// DEFINE dataInicio //\r",
+							"\r",
+							"// Adicionar um número aleatório de dias (exemplo: entre 1 e 30 dias)\r",
+							"var randomDaysInicio = getRandomInt(1, 30);\r",
+							"\r",
+							"// Adicionar horas e minutos aleatórios (exemplo: entre 0 e 23 horas e 0 a 59 minutos)\r",
+							"var randomHours = getRandomInt(0, 23);\r",
+							"var randomMinutes = getRandomInt(0, 59);\r",
+							"\r",
+							"// Calcular a data futura\r",
+							"var futureDate = new Date(now);\r",
+							"futureDate.setDate(futureDate.getDate() + randomDaysInicio); // Adiciona dias\r",
+							"futureDate.setHours(futureDate.getHours() + randomHours); // Adiciona horas\r",
+							"futureDate.setMinutes(futureDate.getMinutes() + randomMinutes); // Adiciona minutos\r",
+							"var futureDateInicio = futureDate\r",
+							"\r",
+							"// DEFINE dataFim //\r",
+							"\r",
+							"// Adicionar um número aleatório de dias (exemplo: entre 1 e 30 dias)\r",
+							"var randomDays = getRandomInt(1, 30);\r",
+							"\r",
+							"// Adicionar horas e minutos aleatórios (exemplo: entre 0 e 23 horas e 0 a 59 minutos)\r",
+							"var randomHours = getRandomInt(0, 23);\r",
+							"var randomMinutes = getRandomInt(0, 59);\r",
+							"\r",
+							"// Calcular a data futura\r",
+							"var futureDate = new Date(now);\r",
+							"futureDate.setDate(futureDate.getDate() + randomDays); // Adiciona dias\r",
+							"futureDate.setHours(futureDate.getHours() + randomHours); // Adiciona horas\r",
+							"futureDate.setMinutes(futureDate.getMinutes() + randomMinutes); // Adiciona minutos\r",
+							"var futureDateFim = futureDate\r",
+							"\r",
+							"pm.environment.set(\"dataInicio\", futureDateInicio > futureDateFim ? futureDateFim.toISOString() : futureDateInicio.toISOString());\r",
+							"pm.environment.set(\"dataFim\", futureDateInicio > futureDateFim ? futureDateInicio.toISOString() : futureDateFim.toISOString());\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(pm.response.text());\r",
+							"\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"    pm.environment.set(\"idReserva\", jsonData.id)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Test IdEstacionamento\", function () {\r",
+							"    pm.expect(pm.environment.get(\"idEstacionamento\")).to.equal(jsonData.idEstacionamento);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Test IdVaga\", function () {\r",
+							"    pm.expect(pm.environment.get(\"idVaga\")).to.equal(jsonData.idVaga);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Test idUsuario\", function () {\r",
+							"    pm.expect(pm.environment.get(\"idUsuario\")).to.equal(jsonData.idUsuario);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Test dataInicio\", function () {\r",
+							"    pm.expect(pm.environment.get(\"dataInicio\")).to.equal(jsonData.dataInicio);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Test dataFim\", function () {\r",
+							"    pm.expect(pm.environment.get(\"dataFim\")).to.equal(jsonData.dataFim);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Test statusReserva\", function () {\r",
+							"    pm.expect(pm.environment.get(\"statusReserva\")).to.equal(jsonData.statusReserva);\r",
+							"    pm.expect(pm.environment.get(\"statusReservaDescricao\")).to.equal(jsonData.statusReservaDescricao);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"idEstacionamento\": \"{{idEstacionamento}}\",\r\n  \"idVaga\": \"{{idVaga}}\",\r\n  \"idUsuario\": \"{{idUsuario}}\",\r\n  \"dataInicio\": \"{{dataInicio}}\",\r\n  \"dataFim\": \"{{dataFim}}\",\r\n  \"statusReserva\": {{statusReserva}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{urlReservas}}/v1/reservas",
+					"host": [
+						"{{urlReservas}}"
+					],
+					"path": [
+						"v1",
+						"reservas"
+					]
+				},
+				"description": "Endpoint para cadastrar nova reserva"
+			},
+			"response": []
+		},
+		{
+			"name": "Listar Reservas",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(pm.response.text());\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Reservas existem\", function () {\r",
+							"    pm.expect(jsonData.reservas).to.have.length.above(0);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{urlReservas}}/v1/reservas",
+					"host": [
+						"{{urlReservas}}"
+					],
+					"path": [
+						"v1",
+						"reservas"
+					]
+				},
+				"description": "Endpoint para listar todas as reservas realizadas"
+			},
+			"response": []
+		},
+		{
+			"name": "Consultar Reserva",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(pm.response.text());\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Test IdEstacionamento\", function () {\r",
+							"    pm.expect(pm.environment.get(\"idEstacionamento\")).to.equal(jsonData.idEstacionamento);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Test IdVaga\", function () {\r",
+							"    pm.expect(pm.environment.get(\"idVaga\")).to.equal(jsonData.idVaga);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Test idUsuario\", function () {\r",
+							"    pm.expect(pm.environment.get(\"idUsuario\")).to.equal(jsonData.idUsuario);\r",
+							"});\r",
+							"\r",
+							"var dataInicioFormatada = new Date(pm.environment.get(\"dataInicio\"));\r",
+							"dataInicioFormatada.setHours(dataInicioFormatada.getHours() + 3); \r",
+							"\r",
+							"pm.test(\"Test dataInicio\", function () {\r",
+							"    pm.expect(dataInicioFormatada.toISOString()).to.equal(new Date(jsonData.dataInicio).toISOString());\r",
+							"});\r",
+							"\r",
+							"var dataFimFormatada = new Date(pm.environment.get(\"dataFim\"));\r",
+							"dataFimFormatada.setHours(dataFimFormatada.getHours() + 3); \r",
+							"\r",
+							"pm.test(\"Test dataFim\", function () {\r",
+							"    pm.expect(dataFimFormatada.toISOString()).to.equal(new Date(jsonData.dataFim).toISOString());\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Test statusReserva\", function () {\r",
+							"    pm.expect(pm.environment.get(\"statusReserva\")).to.equal(jsonData.statusReserva);\r",
+							"    pm.expect(pm.environment.get(\"statusReservaDescricao\")).to.equal(jsonData.statusReservaDescricao);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{urlReservas}} /v1/reservas/{{idReserva}}",
+					"host": [
+						"{{urlReservas}} "
+					],
+					"path": [
+						"v1",
+						"reservas",
+						"{{idReserva}}"
+					]
+				},
+				"description": "Endpoint para consultar uma reserva específica"
+			},
+			"response": []
+		},
+		{
+			"name": "Alterar Reserva",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"randomEstacionamento = pm.variables.replaceIn(\"{{$randomInt}}\")\r",
+							"randomEstacionamento = Math.floor((randomEstacionamento / 1000) * (pm.environment.get(\"estacionamentos\").length))\r",
+							"\r",
+							"pm.environment.set(\"idEstacionamento\", pm.environment.get(\"estacionamentos\")[randomEstacionamento].id)\r",
+							"pm.environment.set(\"nomeEstacionamento\", pm.environment.get(\"estacionamentos\")[randomEstacionamento].nome)\r",
+							"\r",
+							"pm.environment.set(\"idUsuario\", pm.variables.replaceIn(\"{{$guid}}\"))\r",
+							"\r",
+							"randomReserva = pm.variables.replaceIn(\"{{$randomInt}}\")\r",
+							"randomReserva = Math.floor((randomReserva / 1000) * (pm.environment.get(\"statusReservaEnum\").length))\r",
+							"\r",
+							"pm.environment.set(\"statusReserva\", randomReserva)\r",
+							"pm.environment.set(\"statusReservaDescricao\", pm.environment.get(\"statusReservaEnum\")[randomReserva])\r",
+							"\r",
+							"\r",
+							"// Função para gerar um número aleatório entre dois valores\r",
+							"function getRandomInt(min, max) {\r",
+							"    return Math.floor(Math.random() * (max - min + 1)) + min;\r",
+							"}\r",
+							"\r",
+							"// Data atual\r",
+							"var now = new Date();\r",
+							"\r",
+							"// DEFINE dataInicio //\r",
+							"\r",
+							"// Adicionar um número aleatório de dias (exemplo: entre 1 e 30 dias)\r",
+							"var randomDaysInicio = getRandomInt(1, 30);\r",
+							"\r",
+							"// Adicionar horas e minutos aleatórios (exemplo: entre 0 e 23 horas e 0 a 59 minutos)\r",
+							"var randomHours = getRandomInt(0, 23);\r",
+							"var randomMinutes = getRandomInt(0, 59);\r",
+							"\r",
+							"// Calcular a data futura\r",
+							"var futureDate = new Date(now);\r",
+							"futureDate.setDate(futureDate.getDate() + randomDaysInicio); // Adiciona dias\r",
+							"futureDate.setHours(futureDate.getHours() + randomHours); // Adiciona horas\r",
+							"futureDate.setMinutes(futureDate.getMinutes() + randomMinutes); // Adiciona minutos\r",
+							"var futureDateInicio = futureDate\r",
+							"\r",
+							"// DEFINE dataFim //\r",
+							"\r",
+							"// Adicionar um número aleatório de dias (exemplo: entre 1 e 30 dias)\r",
+							"var randomDays = getRandomInt(1, 30);\r",
+							"\r",
+							"// Adicionar horas e minutos aleatórios (exemplo: entre 0 e 23 horas e 0 a 59 minutos)\r",
+							"var randomHours = getRandomInt(0, 23);\r",
+							"var randomMinutes = getRandomInt(0, 59);\r",
+							"\r",
+							"// Calcular a data futura\r",
+							"var futureDate = new Date(now);\r",
+							"futureDate.setDate(futureDate.getDate() + randomDays); // Adiciona dias\r",
+							"futureDate.setHours(futureDate.getHours() + randomHours); // Adiciona horas\r",
+							"futureDate.setMinutes(futureDate.getMinutes() + randomMinutes); // Adiciona minutos\r",
+							"var futureDateFim = futureDate\r",
+							"\r",
+							"pm.environment.set(\"dataInicio\", futureDateInicio > futureDateFim ? futureDateFim.toISOString() : futureDateInicio.toISOString());\r",
+							"pm.environment.set(\"dataFim\", futureDateInicio > futureDateFim ? futureDateInicio.toISOString() : futureDateFim.toISOString());\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(pm.response.text());\r",
+							"\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Test idReserva\", function () {\r",
+							"    pm.expect(pm.environment.get(\"idReserva\")).to.equal(jsonData.id);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Test IdEstacionamento\", function () {\r",
+							"    pm.expect(pm.environment.get(\"idEstacionamento\")).to.equal(jsonData.idEstacionamento);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Test IdVaga\", function () {\r",
+							"    pm.expect(pm.environment.get(\"idVaga\")).to.equal(jsonData.idVaga);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Test idUsuario\", function () {\r",
+							"    pm.expect(pm.environment.get(\"idUsuario\")).to.equal(jsonData.idUsuario);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Test dataInicio\", function () {\r",
+							"    pm.expect(pm.environment.get(\"dataInicio\")).to.equal(jsonData.dataInicio);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Test dataFim\", function () {\r",
+							"    pm.expect(pm.environment.get(\"dataFim\")).to.equal(jsonData.dataFim);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Test statusReserva\", function () {\r",
+							"    pm.expect(pm.environment.get(\"statusReserva\")).to.equal(jsonData.statusReserva);\r",
+							"    pm.expect(pm.environment.get(\"statusReservaDescricao\")).to.equal(jsonData.statusReservaDescricao);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"{{idReserva}}\",\r\n    \"idEstacionamento\": \"{{idEstacionamento}}\",\r\n    \"idVaga\": \"{{idVaga}}\",\r\n    \"idUsuario\": \"{{idUsuario}}\",\r\n    \"dataInicio\": \"{{dataInicio}}\",\r\n    \"dataFim\": \"{{dataFim}}\",\r\n    \"statusReserva\": {{statusReserva}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{urlReservas}}/v1/reservas",
+					"host": [
+						"{{urlReservas}}"
+					],
+					"path": [
+						"v1",
+						"reservas"
+					]
+				},
+				"description": "Endpoint para alterar o cadastro de uma reserva"
+			},
+			"response": []
+		},
+		{
+			"name": "Cancelar Reserva",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"statusReserva\", 2)\r",
+							"pm.environment.set(\"statusReservaDescricao\", pm.environment.get(\"statusReservaEnum\")[2])\r",
+							"\r",
+							"// console.log(pm.environment.get(\"statusReserva\"))\r",
+							"// console.log(pm.environment.get(\"statusReservaDescricao\"))\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(pm.response.text());\r",
+							"\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Test idReserva\", function () {\r",
+							"    pm.expect(pm.environment.get(\"idReserva\")).to.equal(jsonData.id);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Test statusReserva\", function () {\r",
+							"    pm.expect(pm.environment.get(\"statusReserva\")).to.equal(jsonData.statusReserva);\r",
+							"    pm.expect(pm.environment.get(\"statusReservaDescricao\")).to.equal(jsonData.statusReservaDescricao);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{urlReservas}}/v1/reservas/cancelar/{{idReserva}}",
+					"host": [
+						"{{urlReservas}}"
+					],
+					"path": [
+						"v1",
+						"reservas",
+						"cancelar",
+						"{{idReserva}}"
+					]
+				},
+				"description": "Endpoint para cancelar uma reserva"
+			},
+			"response": []
+		},
+		{
+			"name": "Excluir Reserva",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{urlReservas}}/v1/reservas/{{idReserva}}",
+					"host": [
+						"{{urlReservas}}"
+					],
+					"path": [
+						"v1",
+						"reservas",
+						"{{idReserva}}"
+					]
+				},
+				"description": "Endpoint para excluir uma reserva"
+			},
+			"response": []
+		},
+		{
+			"name": "Listar Status Reservas",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{urlReservas}}/v1/reservas/status",
+					"host": [
+						"{{urlReservas}}"
+					],
+					"path": [
+						"v1",
+						"reservas",
+						"status"
+					]
+				},
+				"description": "Endpoint para obter os status de reservas"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					"pm.environment.set(\"statusReservaEnum\",[\"PENDENTE\",\"CONFIRMADA\",\"CANCELADA\"])"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
