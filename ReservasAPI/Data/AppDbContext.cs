@@ -7,6 +7,6 @@ namespace ReservasAPI.Data
         public DbSet<Reservas> Reservas { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
-            => options.UseSqlite("DataSource=reservas.db;Cache=Shared");
+            => options.UseSqlite("DataSource=Reservas.db;Cache=Shared");
     }
 }
