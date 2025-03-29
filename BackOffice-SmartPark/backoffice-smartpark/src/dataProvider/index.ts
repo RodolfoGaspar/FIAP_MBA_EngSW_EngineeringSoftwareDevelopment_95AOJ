@@ -1,8 +1,7 @@
 import { DataProvider, fetchUtils } from "react-admin";
 import { stringify } from "query-string";
 
-// Defina a URL base da sua API
-const apiUrl = import.meta.env.VITE_API_INTEGRACOES_URL;
+const apiUrl = "https://localhost:7252/v1";
 
 const httpClient = (url: string, options: fetchUtils.Options = {}) => {
   if (!options.headers) {
@@ -35,12 +34,8 @@ const dataProvider: DataProvider = {
 
     const { headers, json } = await httpClient(url);
     return {
+      data: Array.isArray(json.pagamentos) ? json.pagamentos : [],
       total: json.totalRecords,
-      pageInfo: {
-        limit: json.limit,
-        offset: json.offset,
-      },
-      data: json.data,
     };
   },
 
@@ -117,13 +112,9 @@ const dataProvider: DataProvider = {
       method: "POST",
       body: JSON.stringify(params.data),
     });
-    // Ensure the response includes the 'id' field
-    if (!json.cd_tb_integracao) {
-      throw new Error("Resposta da API não inclui um id");
-    }
 
     return {
-      data: { ...params.data, id: json.cd_tb_integracao },
+      data: { ...params.data },
     };
   },
 

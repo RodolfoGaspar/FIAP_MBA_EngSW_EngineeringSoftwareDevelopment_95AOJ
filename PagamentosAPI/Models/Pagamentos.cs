@@ -29,10 +29,10 @@ public class Pagamentos
     public decimal Valor { get; set; }
     public MetodoPagamentoEnum MetodoPagamento { get; set; }
     [IgnoreDataMember]
-    public string MetodoPagamentoDescricao { get { return Enum.GetName(MetodoPagamento); } }
+    public string? MetodoPagamentoDescricao { get { return Enum.GetName(MetodoPagamento); } }
     public StatusPagamentoEnum StatusPagamento { get; set; }
     [IgnoreDataMember]
-    public string StatusPagamentoDescricao { get { return Enum.GetName(StatusPagamento); } }
+    public string? StatusPagamentoDescricao { get { return Enum.GetName(StatusPagamento); } }
     public DateTime CriadoEm { get; set; }
     public DateTime? AlteradoEm { get; set; }
 }

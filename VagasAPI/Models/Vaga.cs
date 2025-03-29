@@ -13,8 +13,8 @@
     public Guid Id { get; set; }
     public Guid IdEstacionamento { get; set; }
     public StatusVagaEnum Status { get; set; }
-    public string StatusDescricao { get { return Enum.GetName(Status); } }
+    public string? StatusDescricao => Enum.GetName(Status);
     public TipoVagaEnum TipoVaga { get; set; }
-    public string TipoVagaDescricao { get { return Enum.GetName(TipoVaga); } }
+    public string? TipoVagaDescricao => Enum.GetName(TipoVaga);
     public decimal ValorHora { get; set; }
 }

@@ -13,10 +13,14 @@ namespace VagasApi.ViewModels
 
         public Vaga MapTo()
         {
-            //AddNotifications(new Contract<Notification>()
-            //    .Requires()
-            //    .IsNotNull(TipoVaga, "Informe o título da tarefa")
-            //    .IsGreaterThan(TipoVaga, 5, "O título deve conter mais de 5 caracteres"));
+            AddNotifications(new Contract<Notification>()
+               .Requires()
+               .IsTrue(Enum.GetValues(typeof(StatusVagaEnum)).Cast<StatusVagaEnum>().Any(s => s == Status),
+                        $"Status informado ({(int)Status}) invÃ¡lido")
+               .IsTrue(Enum.GetValues(typeof(TipoVagaEnum)).Cast<TipoVagaEnum>().Any(s => s == TipoVaga),
+                        $"Status informado ({(int)TipoVaga}) invÃ¡lido")
+               .IsNotNull(TipoVaga, "O valor/hora da vaga deve ser informado")
+               .IsGreaterThan(ValorHora, 0, "O valor/hora da vaga deve ser maior que 0 (zero)"));
 
             return new Vaga(Id, IdEstacionamento, Status, TipoVaga, ValorHora);
         }

@@ -1,4 +1,5 @@
 using Flunt.Notifications;
+using Flunt.Validations;
 
 public class AlterPagamentoViewModel : Notifiable<Notification>
 {
@@ -10,10 +11,15 @@ public class AlterPagamentoViewModel : Notifiable<Notification>
 
     public Pagamentos MapTo()
     {
-        //AddNotifications(new Contract<Notification>()
-        //    .Requires()
-        //    .IsNotNull(Title, "Informe o título da tarefa")
-        //    .IsGreaterThan(Title, 5, "O título deve conter mais de 5 caracteres"));
+        AddNotifications(new Contract<Notification>()
+                            .Requires()
+                            .IsTrue(Enum.GetValues(typeof(MetodoPagamentoEnum)).Cast<MetodoPagamentoEnum>().Any(s => s == MetodoPagamento),
+                                     $"Metodo de Pagamento informado ({(int)MetodoPagamento}) inválido")
+                            .AreNotEquals(Id, Guid.Empty, "Id de pagamento inválido")
+                            .AreNotEquals(IdReserva, Guid.Empty, "IdReserva inválida")
+                            .AreNotEquals(IdUsuario, Guid.Empty, "IdUsuario inválido")
+                            .IsNotNull(Valor, "O valor do pagamento deve ser informado")
+                            .IsGreaterThan(Valor, 0, "O valor do pagamento deve ser maior que 0 (zero)"));
 
         return new Pagamentos(Id, IdReserva, IdUsuario, Valor, MetodoPagamento, DateTime.Now);
     }
