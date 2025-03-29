@@ -20,4 +20,4 @@ EXPOSE 5002
 EXPOSE 5003
 
 # Rodar as APIs simultaneamente em diferentes portas
-CMD ["sh", "-c", "pwd & dotnet PagamentosAPI/PagamentosAPI.dll --urls=http://0.0.0.0:5001 & dotnet ReservasAPI/ReservasAPI.dll --urls=http://0.0.0.0:5002 & dotnet VagasAPI/VagasApi.dll --urls=http://0.0.0.0:5003 & wait"]
+CMD ["sh", "-c", "pwd & dotnet VagasAPI/VagasApi.dll --urls=http://0.0.0.0:5001 & dotnet ReservasAPI/ReservasAPI.dll --urls=http://0.0.0.0:5002 & dotnet PagamentosAPI/PagamentosAPI.dll --urls=http://0.0.0.0:5003 & wait"]

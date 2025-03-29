@@ -38,8 +38,8 @@ app.MapGet("/v1/vagas/{id}", (string id, AppDbContext context) =>
 {
     if (Guid.TryParse(id, out Guid idVaga))
     {
-        var vagas = context?.Vagas?.FirstOrDefault(v => v.Id == Guid.Parse(id));
-        return vagas is not null ? Results.Ok(vagas) : Results.NotFound();
+        var vaga = context?.Vagas?.FirstOrDefault(v => v.Id == Guid.Parse(id));
+        return vaga is not null ? Results.Ok(vaga) : Results.NotFound();
     }
     return Results.NotFound();
 }).Produces<Vaga>();

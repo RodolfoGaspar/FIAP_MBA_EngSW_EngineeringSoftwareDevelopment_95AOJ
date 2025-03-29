@@ -9,7 +9,7 @@ using ReservasAPI.Data;
 namespace ReservasAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250329005912_InitialCreation")]
+    [Migration("20250329031817_InitialCreation")]
     partial class InitialCreation
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
