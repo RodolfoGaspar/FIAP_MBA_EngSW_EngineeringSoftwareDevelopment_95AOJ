@@ -1,13 +1,32 @@
-import { List, Datagrid, TextField } from "react-admin";
+import { List, Datagrid, TextField, FunctionField } from "react-admin";
+import StatusVagaChip from "../../components/StatusVagaChip";
+import TipoVagaField from "../../components/TipoVagaField";
 
 export const VagasList = () => (
   <List>
     <Datagrid>
-      <TextField source="status" />
-      <TextField source="tipoVaga" />
-      <TextField source="valorHora" />
-      <TextField source="idEstacionamento" />
-      <TextField source="id" />
+      <FunctionField
+        source="idEstacionamento"
+        render={(record) => `${record.idEstacionamento?.slice(0, 8)}...`}
+      />
+      <FunctionField
+        source="id"
+        render={(record) => `${record.id?.slice(0, 8)}...`}
+      />
+      <FunctionField
+        source="tipoVagaDescricao"
+        render={(record) => (
+          <TipoVagaField tipoVaga={record.tipoVagaDescricao} />
+        )}
+      />
+      <FunctionField
+        source="statusDescricao"
+        render={(record) => <StatusVagaChip status={record.statusDescricao} />}
+      />
+      <FunctionField
+        source="valorHora"
+        render={(record) => `R$${record.valorHora},00`}
+      />
     </Datagrid>
   </List>
 );
