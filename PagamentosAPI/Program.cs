@@ -46,7 +46,7 @@ app.MapPost("/v1/pagamentos", (AppDbContext context, CreatePagamentoViewModel mo
 {
     var pagamento = model.MapTo();
     if (!model.IsValid)
-        return Results.BadRequest(model.Notifications);
+    { return Results.BadRequest(model.Notifications); }
 
     context?.Pagamentos?.Add(pagamento);
     context?.SaveChanges();
