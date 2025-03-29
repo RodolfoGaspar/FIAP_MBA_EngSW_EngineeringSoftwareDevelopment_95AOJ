@@ -3,6 +3,17 @@ using ReservasAPI.ViewModels;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Configuração do CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("PermitirTudo", policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
+});
+
 builder.Services.AddDbContext<AppDbContext>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -94,7 +105,7 @@ app.MapPut("/v1/reservas/cancelar/{id}", (string id, AppDbContext context) =>
     return Results.NotFound();
 });
 
-app.MapGet("/v1/reservas/status", (AppDbContext context) =>
+app.MapGet("/v1/reservas/status", () =>
 {
     return Enum.GetValues(typeof(StatusReservaEnum)).Cast<StatusReservaEnum>().Select(s => new { Id = s, Name = Enum.GetName(s) }).ToList();
 }).Produces<dynamic>();

@@ -91,12 +91,12 @@ app.MapDelete("/v1/pagamentos/{id}", (string id, AppDbContext context) =>
     return Results.NotFound();
 });
 
-app.MapGet("/v1/pagamentos/metodos", (AppDbContext context) =>
+app.MapGet("/v1/pagamentos/metodos", () =>
 {
     return Enum.GetValues(typeof(MetodoPagamentoEnum)).Cast<MetodoPagamentoEnum>().Select(s => new { Id = s, Name = Enum.GetName(s) }).ToList();
 }).Produces<dynamic>();
 
-app.MapGet("/v1/pagamentos/status", (AppDbContext context) =>
+app.MapGet("/v1/pagamentos/status", () =>
 {
     return Enum.GetValues(typeof(StatusPagamentoEnum)).Cast<StatusPagamentoEnum>().Select(s => new { Id = s, Name = Enum.GetName(s) }).ToList();
 }).Produces<dynamic>();
