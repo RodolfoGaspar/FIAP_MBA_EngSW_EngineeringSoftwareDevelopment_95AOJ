@@ -8,7 +8,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("PermitirTudo", policy =>
     {
-        policy.WithOrigins("*") // Permite qualquer origem
+        policy.AllowAnyOrigin()
               .AllowAnyMethod()
               .AllowAnyHeader();
     });
@@ -20,7 +20,7 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-app.UseCors("PermitirTudo"); // Aplica o CORS antes dos endpoints
+app.UseCors("PermitirTudo");
 
 app.UseSwagger();
 app.UseSwaggerUI();
