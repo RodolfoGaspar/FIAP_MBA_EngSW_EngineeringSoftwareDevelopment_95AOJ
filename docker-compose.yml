@@ -5,7 +5,7 @@ services:
     build:
       context: .  # Usa a raiz como diretório de build do backend
       dockerfile: Dockerfile  # O Dockerfile das APIs está na raiz
-    image: thomasweyand/fiap_95aoj_smart_park-backend:latest  # Imagem do backend no repositório
+    image: rodolfogaspar86/fiap_95aoj_smart_park-backend:latest  # Imagem do backend no repositório
     ports:
       - "5001:5001"
       - "5002:5002"
@@ -20,7 +20,7 @@ services:
       dockerfile: Dockerfile  # Dockerfile dentro dessa pasta
       args:
         - --no-cache
-    image: thomasweyand/fiap_95aoj_smart_park-frontend:latest  # Imagem do frontend no repositório
+    image: rodolfogaspar86/fiap_95aoj_smart_park-frontend:latest  # Imagem do frontend no repositório
     ports:
       - "80:80"
     depends_on:
