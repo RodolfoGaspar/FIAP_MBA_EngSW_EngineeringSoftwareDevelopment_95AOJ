@@ -1,27 +1,31 @@
-
-
 # Sistema de Gerenciamento de Estacionamento  
 
 Repositório para o trabalho final da matéria de Engineering Software Development do MBA de Engenharia de Software da FIAP - 2025.
 
-Solução para gestão de vagas, reservas e pagamentos em estacionamentos, com APIs em .NET Core (C#), frontend em Node.js e suporte a Docker.  
+Solução para gestão de vagas, reservas e pagamentos em estacionamentos, com APIs em .NET Core (C#), base de dados em SQLite, frontend em Node.js e suporte a Docker.  
 
-## Estrutura do Projeto  
+## Estrutura do Projeto
+
 **Backend**  
-- `VagasAPI`: Gerenciamento de vagas  
-- `ReservasAPI`: Gerenciamente de reservas, com validação de horários  
-- `PagamentosAPI`: Gerenciamento de pagamento  
+
+- `VagasAPI`: Microserviço de gerenciamento de vagas
+- `ReservasAPI`: Microserviço de gerenciamente de reservas, com validação de horários  
+- `PagamentosAPI`: Microserviço de gerenciamento de pagamento  
+ 
 
 **Frontend**  
+
 - `ParkingFrontend`: Aplicação Node.js/Express com EJS  
 
 **DevOps**  
+
 - `docker-compose.yml`: Orquestração de containers  
 - `Dockerfiles`: Configurações individuais para cada serviço  
 
 ## 🚀 Primeiros Passos  
 
 ### Pré-requisitos  
+
 - .NET Core 6.0 SDK  
 - Node.js 18.x  
 - Docker Desktop 4.25+  
@@ -30,7 +34,9 @@ Solução para gestão de vagas, reservas e pagamentos em estacionamentos, com A
 ## ▶️ Execução  
 
 ### Via Docker  
+
 Com o Docker instalado, execute os comandos na raiz do projeto.
+
 ```bash
 docker-compose pull
 docker-compose up -d
@@ -39,14 +45,23 @@ docker-compose up -d
 ## 🧪 Testes  
 
 ### Postman  
+
 Importe as collections e environments do diretório `/postman`  
 
 **Workspace Público**: [🔗 Link do Postman](https://www.postman.com/smart-park-7334/fiap-95aoj/overview)  
 
+Como alternativa, as collections e enviroments do postman também estão disponíveis no diretório `Postman` deste repositório, seguindo a seguinte estrutura:
+
+- 'Collections': Collections individuais para cada API, para o fluxo de sucesso e de validações
+- 'Enviroment': Enviroment para testes em ambiente local (localhost)
+- 'Results': Resultados dos testes (via runner) realizados em ambiente de desenvolvimento
+
 ## 🐳 Docker Hub  
-- **API's**: [🔗 Imagem Docker](https://hub.docker.com/r/thomasweyand/fiap_95aoj_smart_park-backend) 
-- **Frontend**: [🔗 Imagem Docker](https://hub.docker.com/r/thomasweyand/fiap_95aoj_smart_park-frontend) 
+
+- **API's**: [🔗 Imagem Docker - Backend](https://hub.docker.com/r/rodolfogaspar86/fiap_95aoj_smart_park-backend)
+- **Frontend**: [🔗 Imagem Docker - Frontend](https://hub.docker.com/r/rodolfogaspar86/fiap_95aoj_smart_park-frontend) 
 
 
 ## 📄 Licença  
+
 Distribuído sob licença MIT. Veja `LICENSE` para detalhes.
