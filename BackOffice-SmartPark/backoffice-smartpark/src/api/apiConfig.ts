@@ -12,3 +12,9 @@ export const apiPagamentos = axios.create({
     "Content-Type": "application/json",
   },
 });
+export const apiReservas = axios.create({
+  baseURL: "http://localhost:5002/v1",
+  headers: {
+    "Content-Type": "application/json",
+  },
+});

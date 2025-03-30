@@ -91,7 +91,7 @@ const dataProvider: DataProvider = {
 
   update: async (resource, params) => {
     const apiUrl = getApiUrl(resource);
-    const url = `${apiUrl}/${resource}/${params.id}`;
+    const url = `${apiUrl}/${resource}`;
     const { status, json } = await httpClient(url, {
       method: "PUT",
       body: JSON.stringify(params.data),

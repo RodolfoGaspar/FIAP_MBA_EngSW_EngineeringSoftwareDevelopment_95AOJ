@@ -1,10 +1,10 @@
-import { Create, SimpleForm, TextInput, SelectInput } from "react-admin";
+import { Edit, SimpleForm, TextInput, SelectInput } from "react-admin";
 import useBuscaTipoVaga from "../../api/hooks/useBuscaTipoVaga";
 import useBuscaStatus from "../../api/hooks/useBuscaStatus";
 import { Grid2 } from "@mui/material";
 import useBuscaEstacionamentos from "../../api/hooks/useBuscaEstacionamentos";
 
-export const VagasCreate = () => {
+export const VagasEdit = () => {
   const { data, loading, error } = useBuscaStatus();
   const {
     data: tipo,
@@ -20,7 +20,7 @@ export const VagasCreate = () => {
   if (error || errorTipo || errorEstacionamento) return <p>Erro: {error}</p>;
 
   return (
-    <Create>
+    <Edit>
       <SimpleForm>
         <Grid2 container spacing={2} sx={{ width: "100%" }}>
           <Grid2 size={{ xs: 12, md: 6 }}>
@@ -67,6 +67,6 @@ export const VagasCreate = () => {
           </Grid2>
         </Grid2>
       </SimpleForm>
-    </Create>
+    </Edit>
   );
 };

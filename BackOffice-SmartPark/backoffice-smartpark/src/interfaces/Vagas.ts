@@ -18,6 +18,11 @@ export interface Estacionamento {
   nome: string;
 }
 
+export interface Reserva {
+  id: number;
+  nome: string;
+}
+
 export interface TipoVaga {
   id: number;
   name: string;

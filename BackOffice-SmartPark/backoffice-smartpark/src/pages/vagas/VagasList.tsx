@@ -1,4 +1,10 @@
-import { List, Datagrid, FunctionField } from "react-admin";
+import {
+  List,
+  Datagrid,
+  FunctionField,
+  EditButton,
+  DeleteButton,
+} from "react-admin";
 import StatusVagaChip from "../../components/StatusVagaChip";
 import TipoVagaField from "../../components/TipoVagaField";
 
@@ -27,6 +33,8 @@ export const VagasList = () => (
         source="valorHora"
         render={(record) => `R$${record.valorHora},00`}
       />
+      <EditButton />
+      <DeleteButton />
     </Datagrid>
   </List>
 );

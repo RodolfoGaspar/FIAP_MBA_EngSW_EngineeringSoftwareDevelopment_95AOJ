@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import { Estacionamento } from "../../interfaces/Vagas";
-import buscaEstacionamentos from "../buscaEstacionamentos";
+import { Reserva } from "../../interfaces/Vagas";
+import buscaReservas from "../buscaReservas";
 
-const useBuscaEstacionamentos = () => {
-  const [data, setData] = useState<Estacionamento[]>([]);
+const useBuscaReservas = () => {
+  const [data, setData] = useState<Reserva[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -11,8 +11,8 @@ const useBuscaEstacionamentos = () => {
     const getData = async () => {
       setLoading(true);
       try {
-        const result = await buscaEstacionamentos();
-        setData(result.estacionamenos);
+        const result = await buscaReservas();
+        setData(result);
       } catch (err: any) {
         setError(err);
       } finally {
@@ -26,4 +26,4 @@ const useBuscaEstacionamentos = () => {
   return { data, loading, error };
 };
 
-export default useBuscaEstacionamentos;
+export default useBuscaReservas;

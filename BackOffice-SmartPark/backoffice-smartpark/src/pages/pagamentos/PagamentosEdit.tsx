@@ -1,5 +1,5 @@
 import {
-  Create,
+  Edit,
   SimpleForm,
   TextInput,
   SelectInput,
@@ -10,7 +10,7 @@ import useBuscaMetodoPagamento from "../../api/hooks/useBuscaMetodoPagamento";
 import useBuscaStatusPagamento from "../../api/hooks/useBuscaStatusPagamento";
 import useBuscaReservas from "../../api/hooks/useBuscaReservas";
 
-export const PagamentosCreate = () => {
+export const PagamentosEdit = () => {
   const {
     data: metodoPagamentoData,
     loading: loadingMetodoPagamento,
@@ -29,8 +29,6 @@ export const PagamentosCreate = () => {
     error: errorReservas,
   } = useBuscaReservas();
 
-  console.log(reservasData);
-
   if (errorMetodoPagamento || errorStatusPagamento || errorReservas)
     return (
       <p>
@@ -39,7 +37,7 @@ export const PagamentosCreate = () => {
     );
 
   return (
-    <Create>
+    <Edit>
       <SimpleForm>
         <Grid2 container spacing={2} sx={{ width: "100%" }}>
           <Grid2 size={{ xs: 12, md: 6 }}>
@@ -47,7 +45,6 @@ export const PagamentosCreate = () => {
               fullWidth
               source="idUsuario"
               label="ID do Usuário"
-              defaultValue="3fa85f64-5717-4562-b3fc-2c963f66afa6"
               InputProps={{ readOnly: true }}
             />
           </Grid2>
@@ -99,6 +96,6 @@ export const PagamentosCreate = () => {
           </Grid2>
         </Grid2>
       </SimpleForm>
-    </Create>
+    </Edit>
   );
 };
