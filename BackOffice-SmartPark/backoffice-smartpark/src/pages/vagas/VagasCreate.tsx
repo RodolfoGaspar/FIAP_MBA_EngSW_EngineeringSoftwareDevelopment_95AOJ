@@ -2,6 +2,7 @@ import { Create, SimpleForm, TextInput, SelectInput } from "react-admin";
 import useBuscaTipoVaga from "../../api/hooks/useBuscaTipoVaga";
 import useBuscaStatus from "../../api/hooks/useBuscaStatus";
 import { Box, Grid2 } from "@mui/material";
+import useBuscaEstacionamentos from "../../api/hooks/useBuscaEstacionamentos";
 
 export const VagasCreate = () => {
   const { data, loading, error } = useBuscaStatus();
@@ -10,8 +11,14 @@ export const VagasCreate = () => {
     loading: loadingTipo,
     error: errorTipo,
   } = useBuscaTipoVaga();
+  const {
+    data: estacionamentos,
+    loading: loadingEstacionamento,
+    error: errorEstacionamento,
+  } = useBuscaEstacionamentos();
+  console.log(estacionamentos);
 
-  if (error || errorTipo) return <p>Erro: {error}</p>;
+  if (error || errorTipo || errorEstacionamento) return <p>Erro: {error}</p>;
 
   return (
     <Create>
@@ -47,7 +54,17 @@ export const VagasCreate = () => {
             <TextInput type="number" fullWidth source="valorHora" />
           </Grid2>
           <Grid2 size={{ xs: 12, md: 6 }}>
-            <TextInput fullWidth source="estacionamento" />
+            <SelectInput
+              fullWidth
+              source="estacionamento"
+              disabled={loadingEstacionamento}
+              choices={estacionamentos?.map((estacionamento) => ({
+                id: estacionamento.id,
+                name: estacionamento.nome,
+              }))}
+              optionText="name"
+              optionValue="id"
+            />
           </Grid2>
         </Grid2>
       </SimpleForm>
