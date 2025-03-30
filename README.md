@@ -27,10 +27,9 @@ Este repositório utiliza GitHub Actions para automatizar o build e a publicaç�
 
 - Checkout do código
 - Autenticação no Docker Hub
+- Build e publicação dos binários das APIs .NET
 - Build das imagens Docker com docker compose
 - Push das imagens para o Docker Hub
-- Build e publicação dos binários das APIs .NET
-- Listagem dos arquivos gerados para validação
 
 ## 🚀 Primeiros Passos  
 
