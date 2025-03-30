@@ -6,7 +6,7 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v6.0": {
-      "PagamentosAPI/1.0.1": {
+      "PagamentosAPI/1.0.2": {
         "dependencies": {
           "Flunt": "2.0.5",
           "Microsoft.EntityFrameworkCore.Design": "5.0.10",
@@ -323,7 +323,7 @@
     }
   },
   "libraries": {
-    "PagamentosAPI/1.0.1": {
+    "PagamentosAPI/1.0.2": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
