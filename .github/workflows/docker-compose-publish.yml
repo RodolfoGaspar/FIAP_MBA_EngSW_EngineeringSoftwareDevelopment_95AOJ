@@ -10,21 +10,45 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout do código
+      # Passo 1: Checkout do código
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Login no Docker Hub
+      # Passo 2: Configurar o .NET SDK
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: '6.0'  # Versão do .NET SDK utilizada no projeto
+
+      # Passo 3: Restaurar dependências do .NET
+      - name: Restore dependencies
+        run: dotnet restore
+
+      # Passo 4: Publicar as APIs .NET (gera os binários na pasta 'out/')
+      - name: Publish .NET application
+        run: |
+          dotnet publish PagamentosAPI/PagamentosAPI.csproj -c Release -o ./PagamentosAPI/out
+          dotnet publish ReservasAPI/ReservasAPI.csproj -c Release -o ./ReservasAPI/out
+          dotnet publish VagasAPI/VagasApi.csproj -c Release -o ./VagasAPI/out
+
+      # Passo 5: Listar os arquivos gerados para garantir que os binários foram gerados corretamente
+      - name: List published files
+        run: |
+          ls -l ./PagamentosAPI/out
+          ls -l ./ReservasAPI/out
+          ls -l ./VagasAPI/out
+
+      # Passo 6: Login no Docker Hub
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      # Construção das imagens com Docker Compose
+      # Passo 7: Construção das imagens com Docker Compose
       - name: Build images
         run: docker compose -f docker-compose.yml build
 
-      # Publicação das imagens no Docker Hub
+      # Passo 8: Publicação das imagens no Docker Hub
       - name: Push images to Docker Hub
         run: docker compose -f docker-compose.yml push
