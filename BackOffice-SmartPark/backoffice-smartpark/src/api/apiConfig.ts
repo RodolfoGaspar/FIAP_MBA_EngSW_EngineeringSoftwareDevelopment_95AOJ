@@ -16,7 +16,7 @@ export const apiPagamentos = axios.create({
   },
 });
 export const apiReservas = axios.create({
-  baseURL: "http://localhost:5002/v1",
+  baseURL: `${API_BASE_URL}:5002/v1`,
   headers: {
     "Content-Type": "application/json",
   },

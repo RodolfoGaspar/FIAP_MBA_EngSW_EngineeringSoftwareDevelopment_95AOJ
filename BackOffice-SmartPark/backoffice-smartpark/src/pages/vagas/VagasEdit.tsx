@@ -39,7 +39,8 @@ export const VagasEdit = () => {
           <Grid2 size={{ xs: 12, md: 6 }}>
             <SelectInput
               fullWidth
-              source="tipos"
+              label="Tipo vaga"
+              source="tipoVaga"
               disabled={loadingTipo}
               choices={tipo?.map((status) => ({
                 id: status.id,
@@ -55,7 +56,8 @@ export const VagasEdit = () => {
           <Grid2 size={{ xs: 12, md: 6 }}>
             <SelectInput
               fullWidth
-              source="estacionamento"
+              label="ID Estacionamento"
+              source="idEstacionamento"
               disabled={loadingEstacionamento}
               choices={estacionamentos?.map((estacionamento) => ({
                 id: estacionamento.id,

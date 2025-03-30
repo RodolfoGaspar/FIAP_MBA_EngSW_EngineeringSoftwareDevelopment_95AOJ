@@ -55,7 +55,7 @@ export const VagasCreate = () => {
           <Grid2 size={{ xs: 12, md: 6 }}>
             <SelectInput
               fullWidth
-              source="estacionamento"
+              source="idEstacionamento"
               disabled={loadingEstacionamento}
               choices={estacionamentos?.map((estacionamento) => ({
                 id: estacionamento.id,
