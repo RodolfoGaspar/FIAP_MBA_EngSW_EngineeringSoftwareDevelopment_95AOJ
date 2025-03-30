@@ -27,14 +27,6 @@ Solução para gestão de vagas, reservas e pagamentos em estacionamentos, com A
 - Docker Desktop 4.25+  
 - Postman/Newman (para testes de API)  
 
-### Instalação  
-```bash
-git clone https://github.com/seu-usuario/parking-system.git
-cd parking-system
-dotnet build ParkingSystem.sln
-cd ParkingFrontend && npm install
-```
-
 ## ▶️ Execução  
 
 ### Via Docker  
