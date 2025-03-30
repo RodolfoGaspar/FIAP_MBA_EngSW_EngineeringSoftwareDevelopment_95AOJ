@@ -20,7 +20,17 @@ Solução para gestão de vagas, reservas e pagamentos em estacionamentos, com A
 **DevOps**  
 
 - `docker-compose.yml`: Orquestração de containers  
-- `Dockerfiles`: Configurações individuais para cada serviço  
+- `Dockerfiles`: Configurações individuais para cada serviço
+
+⚙️ **SmartPark - CI/CD Pipeline.
+Este repositório utiliza GitHub Actions para automatizar o build e a publicação das imagens Docker. A cada push na branch main, o pipeline executa os seguintes passos:**
+
+- Checkout do código
+- Autenticação no Docker Hub
+- Build das imagens Docker com docker compose
+- Push das imagens para o Docker Hub
+- Build e publicação dos binários das APIs .NET
+- Listagem dos arquivos gerados para validação
 
 ## 🚀 Primeiros Passos  
 
