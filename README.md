@@ -2,7 +2,7 @@
 
 # Sistema de Gerenciamento de Estacionamento  
 
-Repositório para trabalho final da matéria Engineering Software Development do MBA de Engenharia de Software da FIAP - 2025.
+Repositório para trabalho final da matéria de Engineering Software Development do MBA de Engenharia de Software da FIAP - 2025.
 
 Solução para gestão de vagas, reservas e pagamentos em estacionamentos, com APIs em .NET Core (C#), frontend em Node.js e suporte a Docker.  
 
