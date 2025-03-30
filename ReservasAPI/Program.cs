@@ -3,12 +3,12 @@ using ReservasAPI.ViewModels;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configuração do CORS
+// ConfiguraÃ§Ã£o do CORS
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("PermitirTudo", policy =>
     {
-        policy.AllowAnyOrigin()
+        policy.WithOrigins("*") // Permite qualquer origem
               .AllowAnyMethod()
               .AllowAnyHeader();
     });
@@ -19,6 +19,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+app.UseCors("PermitirTudo"); // Aplica o CORS antes dos endpoints
+
 app.UseSwagger();
 app.UseSwaggerUI();
 
@@ -32,7 +35,7 @@ app.MapGet("/v1/reservas/{id}", (string id, AppDbContext context) =>
 {
     if (Guid.TryParse(id, out Guid idReserva))
     {
-        var reservas = context?.Reservas?.FirstOrDefault(r => r.Id == Guid.Parse(id));
+        var reservas = context?.Reservas?.FirstOrDefault(r => r.Id == idReserva);
         return reservas is not null ? Results.Ok(reservas) : Results.NotFound();
     }
     return Results.NotFound();
@@ -42,7 +45,7 @@ app.MapPost("/v1/reservas", (AppDbContext context, CreateReservaViewModel model)
 {
     var reserva = model.MapTo();
     if (!model.IsValid)
-    { return Results.BadRequest(model.Notifications); }
+        return Results.BadRequest(model.Notifications);
 
     context?.Reservas?.Add(reserva);
     context?.SaveChanges();
@@ -54,7 +57,7 @@ app.MapPut("/v1/reservas", (AppDbContext context, AlterReservaViewModel model) =
 {
     var modelReserva = model.MapTo();
     if (!model.IsValid)
-    { return Results.BadRequest(model.Notifications); }
+        return Results.BadRequest(model.Notifications);
 
     var reserva = context?.Reservas?.FirstOrDefault(r => r.Id == model.Id);
 
@@ -83,7 +86,7 @@ app.MapDelete("/v1/reservas/{id}", (string id, AppDbContext context) =>
         {
             context?.Remove(reserva);
             if (context?.SaveChanges() > 0)
-            { return Results.NoContent(); }
+                return Results.NoContent();
         }
     }
     return Results.NotFound();
@@ -97,7 +100,6 @@ app.MapPut("/v1/reservas/cancelar/{id}", (string id, AppDbContext context) =>
         if (reserva is not null)
         {
             reserva.StatusReserva = StatusReservaEnum.CANCELADA;
-
             context?.SaveChanges();
             return Results.Created($"/v1/reservas/{id}", reserva);
         }
@@ -107,7 +109,10 @@ app.MapPut("/v1/reservas/cancelar/{id}", (string id, AppDbContext context) =>
 
 app.MapGet("/v1/reservas/status", () =>
 {
-    return Enum.GetValues(typeof(StatusReservaEnum)).Cast<StatusReservaEnum>().Select(s => new { Id = s, Name = Enum.GetName(s) }).ToList();
+    return Enum.GetValues(typeof(StatusReservaEnum))
+               .Cast<StatusReservaEnum>()
+               .Select(s => new { Id = s, Name = Enum.GetName(s) })
+               .ToList();
 }).Produces<dynamic>();
 
 app.Run();

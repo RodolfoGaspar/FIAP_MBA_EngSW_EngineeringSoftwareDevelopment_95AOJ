@@ -1,7 +1,10 @@
 import { DataProvider, fetchUtils } from "react-admin";
 import { stringify } from "query-string";
 
-const apiUrl = "https://localhost:7252/v1";
+const apiUrls = {
+  pagamentos: "http://localhost:5003/v1",
+  vagas: "http://localhost:5001/v1",
+};
 
 const httpClient = (url: string, options: fetchUtils.Options = {}) => {
   if (!options.headers) {
@@ -11,6 +14,8 @@ const httpClient = (url: string, options: fetchUtils.Options = {}) => {
   options.headers.set("Authorization", `Bearer ${token}`);
   return fetchUtils.fetchJson(url, options);
 };
+
+const getApiUrl = (resource: string) => apiUrls[resource] || apiUrls.pagamentos;
 
 const dataProvider: DataProvider = {
   getList: async (resource, params) => {
@@ -30,16 +35,28 @@ const dataProvider: DataProvider = {
       });
     }
 
+    const apiUrl = getApiUrl(resource);
     const url = `${apiUrl}/${resource}?${queryParams.toString()}`;
 
     const { headers, json } = await httpClient(url);
+
+    let data = [];
+    if (resource === "pagamentos") {
+      data = Array.isArray(json.pagamentos) ? json.pagamentos : [];
+    } else if (resource === "vagas") {
+      data = Array.isArray(json.vagas) ? json.vagas : [];
+    } else {
+      data = Array.isArray(json.data) ? json.data : [];
+    }
+
     return {
-      data: Array.isArray(json.pagamentos) ? json.pagamentos : [],
-      total: json.totalRecords,
+      data,
+      total: json.totalRecords || data.length,
     };
   },
 
   getOne: async (resource, params) => {
+    const apiUrl = getApiUrl(resource);
     const url = `${apiUrl}/${resource}/${params.id}`;
     const { json } = await httpClient(url);
     return {
@@ -51,6 +68,7 @@ const dataProvider: DataProvider = {
     const query = {
       filter: JSON.stringify({ id: params.ids }),
     };
+    const apiUrl = getApiUrl(resource);
     const url = `${apiUrl}/${resource}?${stringify(query)}`;
     const { json } = await httpClient(url);
     return {
@@ -58,30 +76,22 @@ const dataProvider: DataProvider = {
     };
   },
 
-  getManyReference: async (resource, params) => {
-    const { page, perPage } = params.pagination;
-    const { field, order } = params.sort;
-    const query = {
-      sort: JSON.stringify([field, order]),
-      range: JSON.stringify([(page - 1) * perPage, page * perPage - 1]),
-      filter: JSON.stringify({
-        ...params.filter,
-        [params.target]: params.id,
-      }),
-    };
-    const url = `${apiUrl}/${resource}?${stringify(query)}`;
-    const { headers, json } = await httpClient(url);
+  create: async (resource, params) => {
+    const apiUrl = getApiUrl(resource);
+    const url = `${apiUrl}/${resource}`;
+    const { json } = await httpClient(url, {
+      method: "POST",
+      body: JSON.stringify(params.data),
+    });
+
     return {
-      data: json,
-      total: parseInt(
-        headers.get("content-range")?.split("/").pop() || "0",
-        10,
-      ),
+      data: { ...params.data, id: json.id },
     };
   },
 
   update: async (resource, params) => {
-    const url = `${apiUrl}/${resource}/${params.id}`;
+    const apiUrl = getApiUrl(resource);
+    const url = `${apiUrl}/${resource}`;
     const { status, json } = await httpClient(url, {
       method: "PUT",
       body: JSON.stringify(params.data),
@@ -92,52 +102,14 @@ const dataProvider: DataProvider = {
     return { data: json };
   },
 
-  updateMany: async (resource, params) => {
-    const responses = await Promise.all(
-      params.ids.map((id) =>
-        httpClient(`${apiUrl}/${resource}/${id}`, {
-          method: "PUT",
-          body: JSON.stringify(params.data),
-        }),
-      ),
-    );
-    return {
-      data: responses.map(({ json }) => json.id),
-    };
-  },
-
-  create: async (resource, params) => {
-    const url = `${apiUrl}/${resource}`;
-    const { json } = await httpClient(url, {
-      method: "POST",
-      body: JSON.stringify(params.data),
-    });
-
-    return {
-      data: { ...params.data },
-    };
-  },
-
   delete: async (resource, params) => {
+    const apiUrl = getApiUrl(resource);
     const url = `${apiUrl}/${resource}/${params.id}`;
     const { json } = await httpClient(url, {
       method: "DELETE",
     });
     return {
       data: json,
-    };
-  },
-
-  deleteMany: async (resource, params) => {
-    const responses = await Promise.all(
-      params.ids.map((id) =>
-        httpClient(`${apiUrl}/${resource}/${id}`, {
-          method: "DELETE",
-        }),
-      ),
-    );
-    return {
-      data: responses.map(({ json }) => json.id),
     };
   },
 };

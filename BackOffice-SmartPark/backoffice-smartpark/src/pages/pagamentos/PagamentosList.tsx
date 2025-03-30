@@ -1,4 +1,10 @@
-import { List, Datagrid, FunctionField } from "react-admin";
+import {
+  List,
+  Datagrid,
+  FunctionField,
+  EditButton,
+  DeleteButton,
+} from "react-admin";
 import { Pagamento } from "../../interfaces/Pagamentos";
 import MetodoPagamentoChip from "../../components/MetodoPagamentoChip";
 import StatusPagamentoChip from "../../components/StatusPagamentoChipProps ";
@@ -40,6 +46,8 @@ export const PagamentosList = () => (
           new Date(record.criadoEm).toLocaleString()
         }
       />
+      <EditButton />
+      <DeleteButton />
     </Datagrid>
   </List>
 );
