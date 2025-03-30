@@ -30,7 +30,9 @@ Solução para gestão de vagas, reservas e pagamentos em estacionamentos, com A
 ## ▶️ Execução  
 
 ### Via Docker  
+Com o Docker instalado, execute os comandos na raiz do projeto.
 ```bash
+docker-compose pull
 docker-compose up -d
 ```
 
