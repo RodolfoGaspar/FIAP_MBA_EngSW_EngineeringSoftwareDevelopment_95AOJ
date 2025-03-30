@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.31710.8
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PagamentosAPI", "PagamentosAPI.csproj", "{851BD321-0391-4F3F-8EED-F40A8D03C3E5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PagamentosAPITests1", "..\PagamentosAPITests1\PagamentosAPITests1.csproj", "{20D3BF05-0816-4B24-9C36-DBD56C86F825}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{851BD321-0391-4F3F-8EED-F40A8D03C3E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{851BD321-0391-4F3F-8EED-F40A8D03C3E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{851BD321-0391-4F3F-8EED-F40A8D03C3E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20D3BF05-0816-4B24-9C36-DBD56C86F825}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20D3BF05-0816-4B24-9C36-DBD56C86F825}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20D3BF05-0816-4B24-9C36-DBD56C86F825}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20D3BF05-0816-4B24-9C36-DBD56C86F825}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
