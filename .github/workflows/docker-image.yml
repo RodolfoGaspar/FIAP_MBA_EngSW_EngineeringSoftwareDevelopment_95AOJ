@@ -23,9 +23,8 @@ jobs:
 
       # Construção das imagens com Docker Compose
       - name: Build images
-        run: docker-compose build
+        run: docker-compose -f docker-compose.yml build
 
       # Publicação das imagens no Docker Hub
       - name: Push images to Docker Hub
-        run: |
-          docker-compose push
+        run: docker-compose -f docker-compose.yml push
