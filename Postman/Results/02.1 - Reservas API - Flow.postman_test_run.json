@@ -1,0 +1,427 @@
+{
+	"id": "14c19626-5c65-4afb-94ef-7262845c3f47",
+	"name": "02.1 - Reservas API - Validations",
+	"timestamp": "2025-03-29T23:02:38.474Z",
+	"collection_id": "17414745-bf0fd392-5768-481b-a592-2cd06c5a254f",
+	"folder_id": 0,
+	"environment_id": "17414745-fcabb485-b28c-4b77-87c5-757451100b54",
+	"totalPass": 30,
+	"delay": 0,
+	"persist": true,
+	"status": "finished",
+	"startedAt": "2025-03-29T23:02:37.193Z",
+	"totalFail": 0,
+	"results": [
+		{
+			"id": "1e39f574-dc24-4bcd-a124-29b134660e9d",
+			"name": "Criar Reserva",
+			"url": "http://localhost:5002/v1/reservas",
+			"time": 35,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Status code is 201": true,
+				"Test IdEstacionamento": true,
+				"Test IdVaga": true,
+				"Test idUsuario": true,
+				"Test dataInicio": true,
+				"Test dataFim": true,
+				"Test statusReserva": true
+			},
+			"testPassFailCounts": {
+				"Status code is 201": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Test IdEstacionamento": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Test IdVaga": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Test idUsuario": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Test dataInicio": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Test dataFim": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Test statusReserva": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				35
+			],
+			"allTests": [
+				{
+					"Status code is 201": true,
+					"Test IdEstacionamento": true,
+					"Test IdVaga": true,
+					"Test idUsuario": true,
+					"Test dataInicio": true,
+					"Test dataFim": true,
+					"Test statusReserva": true
+				}
+			]
+		},
+		{
+			"id": "12240eab-64ee-424c-a229-d0faaddb821e",
+			"name": "Consultar Reserva",
+			"url": "http://localhost:5002 /v1/reservas/cdf96e15-e126-4595-b1ca-0fa0c5dec1cd",
+			"time": 24,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Test IdEstacionamento": true,
+				"Test IdVaga": true,
+				"Test idUsuario": true,
+				"Test dataInicio": true,
+				"Test dataFim": true,
+				"Test statusReserva": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Test IdEstacionamento": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Test IdVaga": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Test idUsuario": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Test dataInicio": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Test dataFim": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Test statusReserva": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				24
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Test IdEstacionamento": true,
+					"Test IdVaga": true,
+					"Test idUsuario": true,
+					"Test dataInicio": true,
+					"Test dataFim": true,
+					"Test statusReserva": true
+				}
+			]
+		},
+		{
+			"id": "2a73a035-833e-41c5-9ea5-d85bcf7ace26",
+			"name": "Alterar Reserva",
+			"url": "http://localhost:5002/v1/reservas",
+			"time": 27,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Status code is 201": true,
+				"Test idReserva": true,
+				"Test IdEstacionamento": true,
+				"Test IdVaga": true,
+				"Test idUsuario": true,
+				"Test dataInicio": true,
+				"Test dataFim": true,
+				"Test statusReserva": true
+			},
+			"testPassFailCounts": {
+				"Status code is 201": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Test idReserva": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Test IdEstacionamento": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Test IdVaga": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Test idUsuario": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Test dataInicio": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Test dataFim": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Test statusReserva": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				27
+			],
+			"allTests": [
+				{
+					"Status code is 201": true,
+					"Test idReserva": true,
+					"Test IdEstacionamento": true,
+					"Test IdVaga": true,
+					"Test idUsuario": true,
+					"Test dataInicio": true,
+					"Test dataFim": true,
+					"Test statusReserva": true
+				}
+			]
+		},
+		{
+			"id": "2d739b81-96b0-44c5-81a1-f87d38517afa",
+			"name": "Cancelar Reserva",
+			"url": "http://localhost:5002/v1/reservas/cancelar/cdf96e15-e126-4595-b1ca-0fa0c5dec1cd",
+			"time": 27,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Status code is 201": true,
+				"Test idReserva": true,
+				"Test statusReserva": true
+			},
+			"testPassFailCounts": {
+				"Status code is 201": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Test idReserva": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Test statusReserva": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				27
+			],
+			"allTests": [
+				{
+					"Status code is 201": true,
+					"Test idReserva": true,
+					"Test statusReserva": true
+				}
+			]
+		},
+		{
+			"id": "98ddd2af-5cd7-43bb-a5b7-c23c66b0d3f0",
+			"name": "Excluir Reserva",
+			"url": "http://localhost:5002/v1/reservas/cdf96e15-e126-4595-b1ca-0fa0c5dec1cd",
+			"time": 25,
+			"responseCode": {
+				"code": 204,
+				"name": "No Content"
+			},
+			"tests": {
+				"Status code is 204": true
+			},
+			"testPassFailCounts": {
+				"Status code is 204": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				25
+			],
+			"allTests": [
+				{
+					"Status code is 204": true
+				}
+			]
+		},
+		{
+			"id": "bdd267f9-9449-4391-89be-10b6c106ef83",
+			"name": "Consultar Reserva - Excluída",
+			"url": "http://localhost:5002 /v1/reservas/cdf96e15-e126-4595-b1ca-0fa0c5dec1cd",
+			"time": 8,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status code is 404": true
+			},
+			"testPassFailCounts": {
+				"Status code is 404": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				8
+			],
+			"allTests": [
+				{
+					"Status code is 404": true
+				}
+			]
+		},
+		{
+			"id": "bbfa7fdc-89f3-43cf-be90-50a73d766813",
+			"name": "Alterar Reserva - Excluída",
+			"url": "http://localhost:5002/v1/reservas",
+			"time": 10,
+			"responseCode": {
+				"code": 204,
+				"name": "No Content"
+			},
+			"tests": {
+				"Status code is 204": true
+			},
+			"testPassFailCounts": {
+				"Status code is 204": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				10
+			],
+			"allTests": [
+				{
+					"Status code is 204": true
+				}
+			]
+		},
+		{
+			"id": "9ce525bb-88e4-4c6d-9637-e8db945b71ee",
+			"name": "Cancelar Reserva - Excluída",
+			"url": "http://localhost:5002/v1/reservas/cancelar/cdf96e15-e126-4595-b1ca-0fa0c5dec1cd",
+			"time": 7,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status code is 404": true
+			},
+			"testPassFailCounts": {
+				"Status code is 404": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				7
+			],
+			"allTests": [
+				{
+					"Status code is 404": true
+				}
+			]
+		},
+		{
+			"id": "e0c3b79f-f588-4005-9569-e4eeef788c3a",
+			"name": "Criar Reserva - Erro data fim",
+			"url": "http://localhost:5002/v1/reservas",
+			"time": 6,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status code is 400": true
+			},
+			"testPassFailCounts": {
+				"Status code is 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				6
+			],
+			"allTests": [
+				{
+					"Status code is 400": true
+				}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 169,
+	"collection": {
+		"requests": [
+			{
+				"id": "1e39f574-dc24-4bcd-a124-29b134660e9d",
+				"method": "POST"
+			},
+			{
+				"id": "12240eab-64ee-424c-a229-d0faaddb821e",
+				"method": "GET"
+			},
+			{
+				"id": "2a73a035-833e-41c5-9ea5-d85bcf7ace26",
+				"method": "PUT"
+			},
+			{
+				"id": "2d739b81-96b0-44c5-81a1-f87d38517afa",
+				"method": "PUT"
+			},
+			{
+				"id": "98ddd2af-5cd7-43bb-a5b7-c23c66b0d3f0",
+				"method": "DELETE"
+			},
+			{
+				"id": "bdd267f9-9449-4391-89be-10b6c106ef83",
+				"method": "GET"
+			},
+			{
+				"id": "bbfa7fdc-89f3-43cf-be90-50a73d766813",
+				"method": "PUT"
+			},
+			{
+				"id": "9ce525bb-88e4-4c6d-9637-e8db945b71ee",
+				"method": "PUT"
+			},
+			{
+				"id": "e0c3b79f-f588-4005-9569-e4eeef788c3a",
+				"method": "POST"
+			}
+		]
+	}
+}
