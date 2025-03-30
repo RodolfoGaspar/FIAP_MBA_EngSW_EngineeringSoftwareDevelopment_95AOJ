@@ -22,7 +22,10 @@ jobs:
 
       # Passo 3: Restaurar dependências do .NET
       - name: Restore dependencies
-        run: dotnet restore
+        run: |
+          dotnet restore PagamentosAPI/PagamentosAPI.csproj
+          dotnet restore ReservasAPI/ReservasAPI.csproj
+          dotnet restore VagasAPI/VagasApi.csproj
 
       # Passo 4: Publicar as APIs .NET (gera os binários na pasta 'out/')
       - name: Publish .NET application
