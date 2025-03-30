@@ -1,12 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using VagasApi.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace VagasApi.ViewModels.Tests
+﻿namespace VagasApi.ViewModels.Tests
 {
     [TestClass()]
     public class AlterVagaViewModelTests
@@ -27,7 +19,7 @@ namespace VagasApi.ViewModels.Tests
         }
 
         [TestMethod()]
-        public void CreateVaga_ErroValor()
+        public void AlterVaga_ErroValor()
         {
             AlterVagaViewModel model = new AlterVagaViewModel()
             {
@@ -42,7 +34,7 @@ namespace VagasApi.ViewModels.Tests
         }
 
         [TestMethod()]
-        public void CreateVaga_ErroStatus()
+        public void AlterVaga_ErroStatus()
         {
             AlterVagaViewModel model = new AlterVagaViewModel()
             {
@@ -57,7 +49,7 @@ namespace VagasApi.ViewModels.Tests
         }
 
         [TestMethod()]
-        public void CreateVaga_ErroTipoVaga()
+        public void AlterVaga_ErroTipoVaga()
         {
             AlterVagaViewModel model = new AlterVagaViewModel()
             {
