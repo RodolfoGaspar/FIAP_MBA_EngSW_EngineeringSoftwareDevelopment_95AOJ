@@ -23,7 +23,7 @@ Solução para gestão de vagas, reservas e pagamentos em estacionamentos, com A
 - `Dockerfiles`: Configurações individuais para cada serviço
 
 ⚙️ **SmartPark - CI/CD Pipeline.
-Este repositório utiliza GitHub Actions para automatizar o build e a publicação das imagens Docker. A cada push na branch main, o pipeline executa os seguintes passos:**
+Este repositório utiliza GitHub Actions para automatizar o build e a publicação das imagens Docker. A cada push na branch main, a pipeline executa os seguintes passos:**
 
 - Checkout do código
 - Autenticação no Docker Hub
