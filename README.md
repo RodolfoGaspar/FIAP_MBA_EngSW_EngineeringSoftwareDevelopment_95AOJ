@@ -36,8 +36,8 @@ Este repositório utiliza GitHub Actions para automatizar o build e a publicaç�
 ### Pré-requisitos  
 
 - .NET Core 6.0 SDK  
-- Node.js 18.x  
-- Docker Desktop 4.25+  
+- Node.js 22.14 
+- Docker 28.0.1  
 - Postman/Newman (para testes de API)  
 
 ## ▶️ Execução  
@@ -61,9 +61,9 @@ Importe as collections e environments do diretório `/postman`
 
 Como alternativa, as collections e enviroments do postman também estão disponíveis no diretório `Postman` deste repositório, seguindo a seguinte estrutura:
 
-- 'Collections': Collections individuais para cada API, para o fluxo de sucesso e de validações
-- 'Enviroment': Enviroment para testes em ambiente local (localhost)
-- 'Results': Resultados dos testes (via runner) realizados em ambiente de desenvolvimento
+- `Collections`: Collections individuais para cada API, para o fluxo de sucesso e de validações
+- `Enviroment`: Enviroment para testes em ambiente local (localhost)
+- `Results`: Resultados dos testes (via runner) realizados em ambiente de desenvolvimento
 
 ## 🐳 Docker Hub  
 
